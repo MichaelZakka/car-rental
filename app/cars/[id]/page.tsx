@@ -121,9 +121,6 @@ export default function CarDetailPage({ params }: { params: { id: string } }) {
     <div className="showroom-page">
       {/* Image Carousel as Hero */}
       <header className="car-detail-image-section car-detail-hero-carousel">
-        <Link href="/categories" className="car-detail-back-link">
-          ← Back to Categories
-        </Link>
         
         <div 
           className="car-detail-image-carousel"
@@ -179,9 +176,6 @@ export default function CarDetailPage({ params }: { params: { id: string } }) {
           <div className="car-detail-hero-content-overlay">
             <div className="container">
               <div className="car-detail-hero-inner">
-                <div className="car-detail-hero-badge">
-                  <span className="badge-text">{car.category}</span>
-                </div>
                 <h1 className="car-detail-hero-title">
                   <span className="title-line-2">{car.name}</span>
                 </h1>

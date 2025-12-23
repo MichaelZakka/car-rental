@@ -46,14 +46,14 @@ export default function HeroSection({ scrollToSection }: HeroSectionProps) {
         </p>
       </div>
       <div className="hero-ctas-container hero-fade-in" style={{ animationDelay: '0.8s' }}>
-        <div className="hero-ctas">
+        {/* <div className="hero-ctas">
           <button className="cta-primary" onClick={() => scrollToSection('featured')}>
             View Inventory
           </button>
           <button className="cta-secondary" onClick={() => scrollToSection('contact')}>
             Schedule Test Drive
           </button>
-        </div>
+        </div> */}
         <div 
           className="scroll-indicator" 
           onClick={() => scrollToSection('featured')}

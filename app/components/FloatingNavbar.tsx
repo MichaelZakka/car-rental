@@ -32,24 +32,12 @@ export default function FloatingNavbar() {
     setIsMobileMenuOpen(false);
   };
 
-  const handleAboutClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (pathname === '/') {
-      const element = document.getElementById('why-choose-us');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      router.push('/#why-choose-us');
-    }
-    setIsMobileMenuOpen(false);
-  };
-
   const navLinks = [
     { href: '/', label: 'Home', type: 'link' },
     { href: '/categories', label: 'Collections', type: 'link' },
+    { href: '/brands', label: 'Brands', type: 'link' },
     { href: '/showroom', label: 'Showroom', type: 'link' },
-    { href: '#about', label: 'About', type: 'scroll', onClick: handleAboutClick },
+    { href: '/about', label: 'About', type: 'link' },
   ];
 
   const isActive = (href: string) => {

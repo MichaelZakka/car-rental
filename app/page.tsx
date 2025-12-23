@@ -3,6 +3,7 @@
 import './showroom.css';
 import HeroSection from './components/HeroSection';
 import FeaturedVehicles from './components/FeaturedVehicles';
+import ExploreBrands from './components/ExploreBrands';
 import WhyChooseUs from './components/WhyChooseUs';
 import InventoryCategories from './components/InventoryCategories';
 import Services from './components/Services';
@@ -171,6 +172,7 @@ export default function Home() {
   return (
     <div className="showroom-page">
       <HeroSection scrollToSection={scrollToSection} />
+      <ExploreBrands />
       <FeaturedVehicles vehicles={featuredVehicles} />
       <WhyChooseUs benefits={benefits} />
       <InventoryCategories />

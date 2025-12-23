@@ -28,7 +28,7 @@ export default function Footer({ scrollToSection }: FooterProps) {
                   </a>
                 </li>
                 <li>
-                  <a href="#why-choose-us" onClick={(e) => { e.preventDefault(); scrollToSection('why-choose-us'); }}>
+                  <a href="/about">
                     About Us
                   </a>
                 </li>

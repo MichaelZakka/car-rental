@@ -170,14 +170,6 @@ export default function CategoryDetailPage({ params }: { params: { categoryId: s
       {/* Cars Grid */}
       <section className="category-cars-section">
         <div className="container">
-          <div className="category-detail-nav" style={{ marginBottom: '2rem', display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-            <Link href="/categories" className="back-link">
-              ← Back to Categories
-            </Link>
-            <Link href="/" className="back-link">
-              Home
-            </Link>
-          </div>
           <div className="category-cars-header">
             <h2 className="category-cars-title">Available Vehicles</h2>
             <p className="category-cars-subtitle">{cars.length} vehicles in this collection</p>
