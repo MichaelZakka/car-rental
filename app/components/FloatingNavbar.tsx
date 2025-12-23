@@ -32,7 +32,14 @@ export default function FloatingNavbar() {
     setIsMobileMenuOpen(false);
   };
 
-  const navLinks = [
+  type NavLink = {
+    href: string;
+    label: string;
+    type: 'link' | 'scroll';
+    onClick?: (e: React.MouseEvent) => void;
+  };
+
+  const navLinks: NavLink[] = [
     { href: '/', label: 'Home', type: 'link' },
     { href: '/categories', label: 'Collections', type: 'link' },
     { href: '/brands', label: 'Brands', type: 'link' },
