@@ -120,10 +120,57 @@ export default function CategoryDetailPage({ params }: { params: { categoryId: s
 
   return (
     <div className="showroom-page">
-      {/* Header */}
-      <header className="category-detail-header">
+      {/* Creative Hero Header */}
+      <header className="categories-hero">
+        <div className="categories-hero-background">
+          <div 
+            className="categories-hero-image" 
+            style={{ backgroundImage: `url(${category.image})` }}
+          ></div>
+          <div className="categories-hero-overlay"></div>
+        </div>
+
+        <div className="categories-hero-content">
+          <div className="container">
+            <div className="categories-hero-inner">
+              <h1 className="categories-hero-title">
+                          <Link href="/categories" className="categories-back-link">
+            ← Back to Collections
+          </Link>
+
+                <span className="title-line-1">{category.name}</span>
+              </h1>
+              <p className="categories-hero-description">
+                {category.description}
+              </p>
+              <div className="categories-hero-stats">
+                <div className="hero-stat">
+                  <div className="stat-number">{cars.length}</div>
+                  <div className="stat-label">VEHICLES</div>
+                </div>
+                <div className="hero-stat">
+                  <div className="stat-number">100%</div>
+                  <div className="stat-label">VERIFIED</div>
+                </div>
+                <div className="hero-stat">
+                  <div className="stat-number">24/7</div>
+                  <div className="stat-label">AVAILABLE</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="categories-hero-scroll">
+          <span className="scroll-text">Scroll to Explore</span>
+          <div className="scroll-line"></div>
+        </div>
+      </header>
+
+      {/* Cars Grid */}
+      <section className="category-cars-section">
         <div className="container">
-          <div className="category-detail-nav">
+          <div className="category-detail-nav" style={{ marginBottom: '2rem', display: 'flex', gap: '1rem', justifyContent: 'center' }}>
             <Link href="/categories" className="back-link">
               ← Back to Categories
             </Link>
@@ -131,24 +178,9 @@ export default function CategoryDetailPage({ params }: { params: { categoryId: s
               Home
             </Link>
           </div>
-          <div className="category-detail-hero">
-            <div className="category-detail-hero-image">
-              <img src={category.image} alt={category.name} />
-            </div>
-            <div className="category-detail-hero-content">
-              <h1 className="category-detail-title">{category.name}</h1>
-              <p className="category-detail-description">{category.description}</p>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Cars Grid */}
-      <section className="category-cars-section">
-        <div className="container">
           <div className="category-cars-header">
             <h2 className="category-cars-title">Available Vehicles</h2>
-            <p className="category-cars-subtitle">{cars.length} vehicles available in this category</p>
+            <p className="category-cars-subtitle">{cars.length} vehicles in this collection</p>
           </div>
           <div className="category-cars-grid">
             {cars.map((car) => (

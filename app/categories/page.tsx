@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import '../showroom.css';
+import Footer from '../components/Footer';
 
 export default function CategoriesPage() {
   const router = useRouter();
@@ -46,16 +47,57 @@ export default function CategoriesPage() {
     router.push(`/categories/${categoryId}`);
   };
 
+  const scrollToSection = (id: string) => {
+    // For categories page, redirect to home page with hash
+    if (typeof window !== 'undefined') {
+      window.location.href = `/#${id}`;
+    }
+  };
+
   return (
     <div className="showroom-page">
-      {/* Header */}
-      <header className="categories-header">
-        <div className="container">
-          <Link href="/" className="back-link">
-            ← Back to Home
-          </Link>
-          <h1 className="page-title">Browse by Category</h1>
-          <p className="page-subtitle">Discover our premium collection organized by vehicle type</p>
+      {/* Creative Hero Header */}
+      <header className="categories-hero">
+        
+        <div className="categories-hero-background">
+          <div className="categories-hero-image"></div>
+          <div className="categories-hero-overlay"></div>
+        </div>
+
+        <div className="categories-hero-content">
+          <div className="container">
+            <div className="categories-hero-inner">
+              <div className="categories-hero-badge">
+                <span className="badge-text">Browse Collection</span>
+              </div>
+              <h1 className="categories-hero-title">
+                <span className="title-line-1">Find Your</span>
+                <span className="title-line-2">Perfect Vehicle</span>
+              </h1>
+              <p className="categories-hero-description">
+                Discover your dream car from our carefully curated categories. From luxury sedans to high-performance sports cars.
+              </p>
+              <div className="categories-hero-stats">
+                <div className="hero-stat">
+                  <div className="stat-number">4</div>
+                  <div className="stat-label">CATEGORIES</div>
+                </div>
+                <div className="hero-stat">
+                  <div className="stat-number">69+</div>
+                  <div className="stat-label">VEHICLES</div>
+                </div>
+                <div className="hero-stat">
+                  <div className="stat-number">100%</div>
+                  <div className="stat-label">VERIFIED</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="categories-hero-scroll">
+          <span className="scroll-text">Scroll to Explore</span>
+          <div className="scroll-line"></div>
         </div>
       </header>
 
@@ -100,6 +142,8 @@ export default function CategoriesPage() {
           </div>
         </div>
       </section>
+
+      <Footer scrollToSection={scrollToSection} />
     </div>
   );
 }

@@ -1,12 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import '../../showroom.css';
 
 export default function CarDetailPage({ params }: { params: { id: string } }) {
   const router = useRouter();
+  const [activeTab, setActiveTab] = useState<'specs' | 'description' | 'features'>('specs');
 
   const carData: { [key: string]: any } = {
     '1': {
@@ -81,60 +82,172 @@ export default function CarDetailPage({ params }: { params: { id: string } }) {
 
   const carId = params.id as string;
   const car = carData[carId] || carData['1'];
-  const [selectedImage, setSelectedImage] = useState(car.image);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const touchStartX = useRef<number>(0);
+  const touchEndX = useRef<number>(0);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    
+    const distance = touchStartX.current - touchEndX.current;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe && currentImageIndex < car.images.length - 1) {
+      setCurrentImageIndex(currentImageIndex + 1);
+    }
+    if (isRightSwipe && currentImageIndex > 0) {
+      setCurrentImageIndex(currentImageIndex - 1);
+    }
+  };
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % car.images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev === 0 ? car.images.length - 1 : prev - 1));
+  };
 
   return (
     <div className="showroom-page">
-      {/* Header Navigation */}
-      <header className="car-detail-header">
-        <div className="container">
-          <div className="car-detail-nav">
-            <Link href="/categories" className="back-link">
-              ← Back to Categories
-            </Link>
-            <Link href="/" className="back-link">
-              Home
-            </Link>
+      {/* Image Carousel as Hero */}
+      <header className="car-detail-image-section car-detail-hero-carousel">
+        <Link href="/categories" className="car-detail-back-link">
+          ← Back to Categories
+        </Link>
+        
+        <div 
+          className="car-detail-image-carousel"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div 
+            className="car-detail-image-slider"
+            style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
+          >
+            {car.images.map((img: string, index: number) => (
+              <div key={index} className="car-detail-image-slide">
+                <img src={img} alt={`${car.name} view ${index + 1}`} />
+              </div>
+            ))}
+          </div>
+          
+          {/* Navigation Arrows */}
+          <button 
+            className="car-image-arrow car-image-arrow-left"
+            onClick={prevImage}
+            aria-label="Previous image"
+          >
+            ←
+          </button>
+          <button 
+            className="car-image-arrow car-image-arrow-right"
+            onClick={nextImage}
+            aria-label="Next image"
+          >
+            →
+          </button>
+
+          {/* Dots Indicator */}
+          <div className="car-image-dots">
+            {car.images.map((_: string, index: number) => (
+              <button
+                key={index}
+                className={`car-image-dot ${currentImageIndex === index ? 'active' : ''}`}
+                onClick={() => setCurrentImageIndex(index)}
+                aria-label={`Go to image ${index + 1}`}
+              />
+            ))}
+          </div>
+
+          {/* Image Counter */}
+          <div className="car-image-counter">
+            {currentImageIndex + 1} / {car.images.length}
+          </div>
+
+          {/* Hero Content Overlay */}
+          <div className="car-detail-hero-content-overlay">
+            <div className="container">
+              <div className="car-detail-hero-inner">
+                <div className="car-detail-hero-badge">
+                  <span className="badge-text">{car.category}</span>
+                </div>
+                <h1 className="car-detail-hero-title">
+                  <span className="title-line-2">{car.name}</span>
+                </h1>
+                <p className="car-detail-hero-description">
+                  {car.description}
+                </p>
+                <div className="car-detail-hero-stats">
+                  <div className="hero-stat">
+                    <div className="stat-number">{car.price}</div>
+                    <div className="stat-label">PRICE</div>
+                  </div>
+                  <div className="hero-stat">
+                    <div className="stat-number">{car.specs.horsepower}</div>
+                    <div className="stat-label">HORSEPOWER</div>
+                  </div>
+                  <div className="hero-stat">
+                    <div className="stat-number">{car.specs.acceleration}</div>
+                    <div className="stat-label">0-60 MPH</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Car Detail Content */}
+      {/* Car Info with Tabs */}
       <section className="car-detail-section">
         <div className="container">
-          <div className="car-detail-wrapper">
-            {/* Image Gallery */}
-            <div className="car-detail-gallery">
-              <div className="car-detail-main-image">
-                <img src={selectedImage} alt={car.name} />
-              </div>
-              <div className="car-detail-thumbnails">
-                {car.images.map((img: string, index: number) => (
-                  <div
-                    key={index}
-                    className={`car-detail-thumbnail ${selectedImage === img ? 'active' : ''}`}
-                    onClick={() => setSelectedImage(img)}
-                  >
-                    <img src={img} alt={`${car.name} view ${index + 1}`} />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Car Info */}
-            <div className="car-detail-info">
-              <div className="car-detail-header-info">
-                <span className="car-detail-category">{car.category}</span>
-                <h1 className="car-detail-name">{car.name}</h1>
-                <p className="car-detail-year">{car.year}</p>
-              </div>
-
+          <div className="car-detail-info-wrapper">
+            <div className="car-detail-header-info">
+              <span className="car-detail-category">{car.category}</span>
+              <h1 className="car-detail-name">{car.name}</h1>
               <div className="car-detail-price-section">
                 <span className="car-detail-price-label">Price</span>
                 <span className="car-detail-price">{car.price}</span>
               </div>
+            </div>
 
-              <div className="car-detail-specs-grid">
+            {/* Tabs */}
+            <div className="car-detail-tabs">
+              <button
+                className={`car-detail-tab ${activeTab === 'specs' ? 'active' : ''}`}
+                onClick={() => setActiveTab('specs')}
+              >
+                Specifications
+              </button>
+              <button
+                className={`car-detail-tab ${activeTab === 'description' ? 'active' : ''}`}
+                onClick={() => setActiveTab('description')}
+              >
+                Description
+              </button>
+              <button
+                className={`car-detail-tab ${activeTab === 'features' ? 'active' : ''}`}
+                onClick={() => setActiveTab('features')}
+              >
+                Features
+              </button>
+            </div>
+
+            {/* Tab Content */}
+            <div className="car-detail-tab-content">
+              {activeTab === 'specs' && (
+
+                <div className="car-detail-specs-grid">
                 <div className="car-detail-spec-item">
                   <span className="car-detail-spec-label">Horsepower</span>
                   <span className="car-detail-spec-value">{car.specs.horsepower}</span>
@@ -170,16 +283,17 @@ export default function CarDetailPage({ params }: { params: { id: string } }) {
                 <div className="car-detail-spec-item">
                   <span className="car-detail-spec-label">MPG</span>
                   <span className="car-detail-spec-value">{car.specs.mpg}</span>
+                  </div>
                 </div>
-              </div>
+              )}
 
-              <div className="car-detail-description">
-                <h3 className="car-detail-description-title">Description</h3>
-                <p className="car-detail-description-text">{car.description}</p>
-              </div>
+              {activeTab === 'description' && (
+                <div className="car-detail-description-content">
+                  <p className="car-detail-description-text">{car.description}</p>
+                </div>
+              )}
 
-              <div className="car-detail-features">
-                <h3 className="car-detail-features-title">Key Features</h3>
+              {activeTab === 'features' && (
                 <div className="car-detail-features-grid">
                   {car.features.map((feature: string, index: number) => (
                     <div key={index} className="car-detail-feature-item">
@@ -188,16 +302,16 @@ export default function CarDetailPage({ params }: { params: { id: string } }) {
                     </div>
                   ))}
                 </div>
-              </div>
+              )}
+            </div>
 
-              <div className="car-detail-actions">
-                <button className="car-detail-btn-primary" onClick={() => router.push('/#contact')}>
-                  Schedule Test Drive
-                </button>
-                <button className="car-detail-btn-secondary" onClick={() => router.push('/#contact')}>
-                  Contact Sales
-                </button>
-              </div>
+            <div className="car-detail-actions">
+              <button className="car-detail-btn-primary" onClick={() => router.push('/#contact')}>
+                Schedule Test Drive
+              </button>
+              <button className="car-detail-btn-secondary" onClick={() => router.push('/#contact')}>
+                Contact Sales
+              </button>
             </div>
           </div>
         </div>
@@ -205,4 +319,3 @@ export default function CarDetailPage({ params }: { params: { id: string } }) {
     </div>
   );
 }
-
