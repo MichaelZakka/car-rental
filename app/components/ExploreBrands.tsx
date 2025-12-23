@@ -67,15 +67,7 @@ export default function ExploreBrands() {
   return (
     <section className="explore-brands-section">
       <div className="container">
-        <div className="section-header">
-          <h2 className="section-title">Explore by Brand</h2>
-          <button 
-            className="view-all-brands-btn"
-            onClick={() => router.push('/brands')}
-          >
-            View All Brands →
-          </button>
-        </div>
+        <h2 className="section-title" style={{ textAlign: 'center',paddingBottom:"50px" }}>Explore by Brand</h2>
         
         <div className="brands-scroll-container" ref={scrollContainerRef}>
           <div className="brands-scroll-track">
@@ -91,6 +83,15 @@ export default function ExploreBrands() {
               </div>
             ))}
           </div>
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}>
+          <button 
+            className="view-all-brands-btn"
+            onClick={() => router.push('/brands')}
+          >
+            View All Brands →
+          </button>
         </div>
       </div>
     </section>
