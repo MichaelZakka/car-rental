@@ -194,7 +194,6 @@ export default function BrandDetailPage({ params }: { params: { brandId: string 
         </div>
         <div className="container">
           <div className="brand-detail-hero-content">
-            <div className="brand-detail-logo">{brand.logo}</div>
             <h1 className="brand-detail-title">{brand.name}</h1>
             <p className="brand-detail-tagline">{brand.tagline}</p>
             <div className="brand-detail-info-row">
