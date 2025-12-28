@@ -2,10 +2,16 @@
 
 import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import bmwLogo from '../assets/logos/BMW LOGO.png';
+import mercedesLogo from '../assets/logos/Mercedes-logo.png';
+import jaguarLogo from '../assets/logos/Jaguar_Logo.png';
+import lamboLogo from '../assets/logos/Lambo_Logo.png';
 
 interface Brand {
   name: string;
   count: number;
+  logo: any;
 }
 
 export default function ExploreBrands() {
@@ -13,16 +19,10 @@ export default function ExploreBrands() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const brands: Brand[] = [
-    { name: 'BMW', count: 12 },
-    { name: 'Mercedes-Benz', count: 15 },
-    { name: 'Audi', count: 10 },
-    { name: 'Tesla', count: 8 },
-    { name: 'Lexus', count: 9 },
-    { name: 'Porsche', count: 7 },
-    { name: 'Genesis', count: 6 },
-    { name: 'Cadillac', count: 8 },
-    { name: 'Jaguar', count: 5 },
-    { name: 'Land Rover', count: 7 },
+    { name: 'BMW', count: 12, logo: bmwLogo },
+    { name: 'Mercedes-Benz', count: 15, logo: mercedesLogo },
+    { name: 'Jaguar', count: 5, logo: jaguarLogo },
+    { name: 'Lamborghini', count: 6, logo: lamboLogo },
   ];
 
   useEffect(() => {
@@ -77,9 +77,18 @@ export default function ExploreBrands() {
                 key={index}
                 className="brand-card"
                 onClick={() => router.push(`/brands/${brand.name.toLowerCase().replace(/\s+/g, '-')}`)}
+                style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '280px' }}
               >
-                <div className="brand-placeholder">{brand.name}</div>
-                <p className="brand-count">{brand.count} vehicles</p>
+                <div className="brand-placeholder" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flex: '1' }}>
+                  <Image 
+                    src={brand.logo} 
+                    alt={brand.name}
+                    width={120}
+                    height={80}
+                    style={{ objectFit: 'contain' }}
+                  />
+                </div>
+                <p className="brand-count" style={{ marginTop: 'auto', textAlign: 'center' }}>{brand.count} vehicles</p>
               </div>
             ))}
           </div>

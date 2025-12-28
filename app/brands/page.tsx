@@ -2,7 +2,12 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import Image from 'next/image';
 import '../showroom.css';
+import bmwLogo from '../assets/logos/BMW LOGO.png';
+import mercedesLogo from '../assets/logos/Mercedes-logo.png';
+import jaguarLogo from '../assets/logos/Jaguar_Logo.png';
+import lamboLogo from '../assets/logos/Lambo_Logo.png';
 
 export default function BrandsPage() {
   const router = useRouter();
@@ -13,79 +18,70 @@ export default function BrandsPage() {
       name: 'BMW',
       count: 12,
       description: 'German luxury vehicles combining performance and elegance',
-      image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80',
+      logo: bmwLogo,
       tagline: 'The Ultimate Driving Machine'
     },
     {
       name: 'Mercedes-Benz',
-      logo: '⭐',
       count: 15,
       description: 'Iconic luxury automobiles with cutting-edge technology',
-      image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80',
+      logo: mercedesLogo,
       tagline: 'The Best or Nothing'
     },
     {
+      name: 'Jaguar',
+      count: 5,
+      description: 'British elegance meets powerful performance',
+      logo: jaguarLogo,
+      tagline: 'Grace, Space, Pace'
+    },
+    {
+      name: 'Lamborghini',
+      count: 6,
+      description: 'Italian supercars with extreme performance and design',
+      logo: lamboLogo,
+      tagline: 'Expect the Unexpected'
+    },
+    {
       name: 'Audi',
-      logo: '🔷',
       count: 10,
       description: 'Progressive design meets advanced engineering',
-      image: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80',
       tagline: 'Vorsprung durch Technik'
     },
     {
       name: 'Tesla',
-      logo: '⚡',
       count: 8,
       description: 'Revolutionary electric vehicles for sustainable mobility',
-      image: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&q=80',
       tagline: 'Electric Performance'
     },
     {
       name: 'Lexus',
-      logo: '💎',
       count: 9,
       description: 'Japanese luxury with unparalleled refinement',
-      image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80',
       tagline: 'Experience Amazing'
     },
     {
       name: 'Porsche',
-      logo: '🏎️',
       count: 7,
       description: 'Legendary sports cars and high-performance vehicles',
-      image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80',
       tagline: 'There is No Substitute'
     },
     {
       name: 'Genesis',
-      logo: '✨',
       count: 6,
       description: 'Modern luxury with bold design and innovation',
-      image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80',
       tagline: 'Redefining Luxury'
     },
     {
       name: 'Cadillac',
-      logo: '👑',
       count: 8,
       description: 'American luxury with style and sophistication',
-      image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=80',
       tagline: 'Dare Greatly'
     },
     {
-      name: 'Jaguar',
-      logo: '🐆',
-      count: 5,
-      description: 'British elegance meets powerful performance',
-      image: 'https://images.unsplash.com/photo-1542362567-b07e54358753?w=800&q=80',
-      tagline: 'Grace, Space, Pace'
-    },
-    {
       name: 'Land Rover',
-      logo: '🏔️',
       count: 7,
       description: 'Luxury SUVs built for adventure and capability',
-      image: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800&q=80',
       tagline: 'Above and Beyond'
     },
   ];
@@ -112,12 +108,18 @@ export default function BrandsPage() {
                 onMouseLeave={() => setHoveredBrand(null)}
                 onClick={() => router.push(`/brands/${brand.name.toLowerCase().replace(/\s+/g, '-')}`)}
               >
-                <div className="brand-grid-image-wrapper">
-                  <img 
-                    src={brand.image} 
-                    alt={brand.name} 
-                    className="brand-grid-image"
-                  />
+                <div className="brand-grid-image-wrapper" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#f8f8f8', minHeight: '200px' }}>
+                  {brand.logo ? (
+                    <Image 
+                      src={brand.logo} 
+                      alt={brand.name} 
+                      width={180}
+                      height={120}
+                      style={{ objectFit: 'contain' }}
+                    />
+                  ) : (
+                    <h3 style={{ fontSize: '2rem', fontWeight: '800', color: '#0a0a0a' }}>{brand.name}</h3>
+                  )}
                   <div className="brand-grid-overlay"></div>
                 </div>
                 <div className="brand-grid-content">

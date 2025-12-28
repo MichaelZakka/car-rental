@@ -5205,3 +5205,214 @@
     width: 100%;
   }
 }
+
+/* Car Swiper Styles */
+.car-main-swiper {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.car-main-swiper .swiper-button-next,
+.car-main-swiper .swiper-button-prev {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.car-main-swiper .swiper-button-next:after,
+.car-main-swiper .swiper-button-prev:after {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.car-main-swiper .swiper-button-next:hover,
+.car-main-swiper .swiper-button-prev:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.car-main-swiper .swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.3);
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.car-main-swiper .swiper-pagination-bullet-active {
+  background: #FFD700;
+  width: 32px;
+  border-radius: 6px;
+}
+
+/* Full Width Car Swiper Styles */
+.car-main-swiper-full {
+  width: 100%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.car-main-swiper-full .swiper-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.car-main-swiper-full .swiper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  overflow: visible;
+}
+
+.car-main-swiper-full .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.car-main-swiper-full .swiper-button-next,
+.car-main-swiper-full .swiper-button-prev {
+  background: #ffffff;
+  color: #0a0a0a;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  border: 2px solid #0a0a0a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  z-index: 10;
+}
+
+.car-main-swiper-full .swiper-button-prev {
+  left: 20px;
+}
+
+.car-main-swiper-full .swiper-button-next {
+  right: 20px;
+}
+
+.car-main-swiper-full .swiper-button-next:after,
+.car-main-swiper-full .swiper-button-prev:after {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0a0a0a;
+}
+
+.car-main-swiper-full .swiper-button-next:hover,
+.car-main-swiper-full .swiper-button-prev:hover {
+  background: #0a0a0a;
+  border-color: #0a0a0a;
+  transform: scale(1.1);
+}
+
+.car-main-swiper-full .swiper-button-next:hover:after,
+.car-main-swiper-full .swiper-button-prev:hover:after {
+  color: #ffffff;
+}
+
+.car-main-swiper-full .swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.car-main-swiper-full .swiper-pagination-bullet-active {
+  background: #0a0a0a;
+  width: 32px;
+  border-radius: 6px;
+}
+
+.car-main-swiper-full .swiper-slide {
+  opacity: 0.5;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: scale(0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
+
+.car-main-swiper-full .swiper-slide > div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.car-main-swiper-full .swiper-slide > div > div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.car-main-swiper-full .swiper-slide-active {
+  opacity: 1;
+  transform: scale(1) !important;
+}
+
+.car-main-swiper-full .swiper-slide-active > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.car-main-swiper-full .swiper-slide-active > div > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.car-main-swiper-full .swiper-slide-prev,
+.car-main-swiper-full .swiper-slide-next {
+  opacity: 0.6;
+  transform: scale(0.95);
+}
+
+.brand-swiper .swiper-slide {
+  transition: all 0.3s ease;
+}
+
+.brand-swiper .swiper-slide:hover {
+  transform: translateY(-5px);
+}
+
+@media (max-width: 768px) {
+  .car-main-swiper .swiper-slide > div {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+  
+  .brand-swiper {
+    max-width: 100% !important;
+  }
+
+  .category-cars-section h2 {
+    font-size: 2rem !important;
+  }
+
+  .category-cars-section .container > div:last-child > div:first-child {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
