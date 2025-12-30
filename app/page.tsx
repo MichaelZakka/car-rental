@@ -12,6 +12,10 @@ import SpecialOffers from './components/SpecialOffers';
 import ShowroomGallery from './components/ShowroomGallery';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import bmwCar from './assets/cars/bmw_Isolated.png';
+import mercedesCar from './assets/cars/Mercedes_Isolated.png';
+import jaguarCar from './assets/cars/Jaguar_Isolated2.png';
+import lamboCar from './assets/cars/Lambo_Isolated.png';
 
 export default function Home() {
   const scrollToSection = (id: string) => {
@@ -66,40 +70,40 @@ export default function Home() {
 
   const featuredVehicles = [
     {
-      name: '2024 BMW 5 Series',
+      name: '2024 BMW M5',
       year: '2024',
-      horsepower: '335 HP',
-      acceleration: '5.1s',
+      horsepower: '617 HP',
+      acceleration: '3.3s',
       fuelType: 'Hybrid',
-      price: '$58,900',
-      image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80'
+      price: '$114,500',
+      image: bmwCar
     },
     {
-      name: '2024 Mercedes-Benz E-Class',
+      name: '2024 Mercedes-AMG GT',
       year: '2024',
-      horsepower: '362 HP',
-      acceleration: '4.9s',
+      horsepower: '523 HP',
+      acceleration: '3.7s',
       fuelType: 'Gasoline',
-      price: '$61,500',
-      image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80'
+      price: '$139,900',
+      image: mercedesCar
     },
     {
-      name: '2024 Tesla Model S',
+      name: '2024 Jaguar F-Type R',
       year: '2024',
-      horsepower: '670 HP',
-      acceleration: '3.1s',
-      fuelType: 'Electric',
-      price: '$89,990',
-      image: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&q=80'
-    },
-    {
-      name: '2024 Audi A6',
-      year: '2024',
-      horsepower: '335 HP',
-      acceleration: '5.1s',
+      horsepower: '444 HP',
+      acceleration: '4.4s',
       fuelType: 'Gasoline',
-      price: '$56,500',
-      image: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80'
+      price: '$73,900',
+      image: jaguarCar
+    },
+    {
+      name: '2024 Lamborghini Huracán',
+      year: '2024',
+      horsepower: '631 HP',
+      acceleration: '2.9s',
+      fuelType: 'Gasoline',
+      price: '$274,390',
+      image: lamboCar
     }
   ];
 

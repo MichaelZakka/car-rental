@@ -13,6 +13,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/thumbs';
 import 'swiper/css/effect-coverflow';
 import '../../showroom.css';
+import Footer from '../../components/Footer';
 import bmwCar from '../../assets/cars/bmw_Isolated.png';
 import mercedesCar from '../../assets/cars/Mercedes_Isolated.png';
 import jaguarCar from '../../assets/cars/Jaguar_Isolated2.png';
@@ -137,62 +138,60 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
     router.push(`/cars/${carId}`);
   };
 
-  return (
-    <div className="showroom-page">
-      {/* Creative Hero Header */}
-      <header className="categories-hero">
-        <div className="categories-hero-background">
-          <div 
-            className="categories-hero-image" 
-            style={{ backgroundImage: `url(${category.image})` }}
-          ></div>
-          <div className="categories-hero-overlay"></div>
-        </div>
+  const scrollToSection = (id: string) => {
+    // For category detail page, redirect to home page with hash
+    if (typeof window !== 'undefined') {
+      window.location.href = `/#${id}`;
+    }
+  };
 
-        <div className="categories-hero-content">
-          <div className="container">
-            <div className="categories-hero-inner">
-              <h1 className="categories-hero-title">
-                          <Link href="/categories" className="categories-back-link">
+  return (
+    <div className="showroom-page" style={{ background: '#0a0a0a' }}>
+      {/* Hero Section */}
+      <section className="brands-page-hero">
+        <div className="brands-hero-content">
+          <Link href="/categories" style={{ 
+            display: 'inline-block', 
+            marginBottom: '2rem', 
+            color: 'rgba(255, 255, 255, 0.8)',
+            textDecoration: 'none',
+            fontSize: '0.95rem',
+            fontWeight: '500',
+            transition: 'color 0.3s ease'
+          }}
+          onMouseOver={(e) => e.currentTarget.style.color = '#ffffff'}
+          onMouseOut={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.8)'}
+          >
             ← Back to Collections
           </Link>
-
-                <span className="title-line-1">{category.name}</span>
-              </h1>
-              <p className="categories-hero-description">
-                {category.description}
-              </p>
-              <div className="categories-hero-stats">
-                <div className="hero-stat">
-                  <div className="stat-number">{cars.length}</div>
-                  <div className="stat-label">VEHICLES</div>
-                </div>
-                <div className="hero-stat">
-                  <div className="stat-number">100%</div>
-                  <div className="stat-label">VERIFIED</div>
-                </div>
-                <div className="hero-stat">
-                  <div className="stat-number">24/7</div>
-                  <div className="stat-label">AVAILABLE</div>
-                </div>
-              </div>
+          <h1 className="brands-hero-title">{category.name}</h1>
+          <p className="brands-hero-subtitle">
+            {category.description}
+          </p>
+          <div className="categories-hero-stats">
+            <div className="hero-stat">
+              <div className="stat-number">{cars.length}</div>
+              <div className="stat-label">VEHICLES</div>
+            </div>
+            <div className="hero-stat">
+              <div className="stat-number">100%</div>
+              <div className="stat-label">VERIFIED</div>
+            </div>
+            <div className="hero-stat">
+              <div className="stat-number">24/7</div>
+              <div className="stat-label">AVAILABLE</div>
             </div>
           </div>
         </div>
-
-        <div className="categories-hero-scroll">
-          <span className="scroll-text">Scroll to Explore</span>
-          <div className="scroll-line"></div>
-        </div>
-      </header>
+      </section>
 
       {/* Cars Swiper Section */}
-      <section className="category-cars-section" style={{ padding: '6rem 0', background: '#ffffff' }}>
+      <section className="category-cars-section" style={{ padding: '2rem 0', background: 'linear-gradient(180deg, #000000 0%, #1A4D2E 100%)' }}>
         {/* Main Car Image Swiper - Full Width */}
         <div style={{ 
           width: '100vw', 
           marginLeft: 'calc(-50vw + 50%)', 
-          marginBottom: '4rem',
+          marginBottom: 'clamp(0.67rem, 1.33vw, 1.33rem)',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -206,7 +205,7 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
               }
             }}
             spaceBetween={30}
-            slidesPerView={1.8}
+            slidesPerView={1.2}
             centeredSlides={true}
             navigation
             pagination={{ clickable: true }}
@@ -220,17 +219,27 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
               maxWidth: '100%'
             }}
             breakpoints={{
+              480: {
+                slidesPerView: 1.3,
+                spaceBetween: 20,
+                centeredSlides: true,
+              },
               640: {
+                slidesPerView: 1.5,
+                spaceBetween: 25,
+                centeredSlides: true,
+              },
+              768: {
                 slidesPerView: 1.8,
                 spaceBetween: 30,
                 centeredSlides: true,
               },
-              768: {
+              1024: {
                 slidesPerView: 2.2,
                 spaceBetween: 40,
                 centeredSlides: true,
               },
-              1024: {
+              1280: {
                 slidesPerView: 2.5,
                 spaceBetween: 50,
                 centeredSlides: true,
@@ -245,14 +254,14 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      padding: '4rem 2rem',
-                      minHeight: '500px',
+                      padding: 'clamp(0.67rem, 1.33vw, 1.67rem) clamp(0.33rem, 1.33vw, 0.67rem)',
+                      minHeight: 'clamp(133px, 23.3vh, 233px)',
                       position: 'relative',
                       width: '100%',
                       height: '100%',
                       margin: '0 auto',
-                      opacity: isActive ? 1 : 0.5,
-                      transform: isActive ? 'scale(1)' : 'scale(0.8)',
+                      opacity: isActive ? 1 : 0.6,
+                      transform: isActive ? 'scale(1)' : 'scale(0.88)',
                       transition: 'all 0.3s ease',
                       pointerEvents: isActive ? 'auto' : 'auto'
                     }}>
@@ -266,18 +275,19 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
                         <Image 
                           src={car.image} 
                           alt={car.name}
-                          width={800}
-                          height={450}
+                          width={1000}
+                          height={563}
                           style={{ 
                             objectFit: 'contain',
                             maxWidth: '100%',
                             height: 'auto',
                             filter: isActive 
-                              ? 'drop-shadow(0 20px 60px rgba(0,0,0,0.8)) drop-shadow(0 10px 30px rgba(0,0,0,0.6)) drop-shadow(0 5px 15px rgba(0,0,0,0.4))'
-                              : 'drop-shadow(0 10px 30px rgba(0,0,0,0.3))',
+                              ? 'drop-shadow(0 20px 60px rgba(26, 77, 46, 0.8)) drop-shadow(0 10px 30px rgba(26, 77, 46, 0.6)) drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4))'
+                              : 'drop-shadow(0 10px 30px rgba(26, 77, 46, 0.5))',
                             display: 'block',
                             margin: '0 auto',
-                            transition: 'all 0.3s ease'
+                            transition: 'all 0.3s ease',
+                            width: 'clamp(133px, 46.7vw, 400px)'
                           }}
                         />
                       </div>
@@ -289,23 +299,43 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
         </div>
 
           <style dangerouslySetInnerHTML={{__html: `
-            @media (max-width: 1024px) {
-              .luxury-car-info-grid {
-                grid-template-columns: 1fr !important;
-                text-align: center !important;
-              }
-              .luxury-car-info-left,
-              .luxury-car-info-right {
-                align-items: center !important;
-                text-align: center !important;
-              }
-              .luxury-car-info-right > div {
-                text-align: center !important;
-              }
-              .luxury-car-info-left > div[style*="width: 40px"],
-              .luxury-car-info-right > div[style*="width: 40px"] {
-                margin: 0 auto !important;
-                background: linear-gradient(90deg, transparent 0%, #0a0a0a 50%, transparent 100%) !important;
+            /* Swiper Navigation Arrows */
+            .car-main-swiper-full .swiper-button-next,
+            .car-main-swiper-full .swiper-button-prev {
+              width: 32px !important;
+              height: 32px !important;
+              margin-top: -16px !important;
+              color: #ffffff;
+            }
+            
+            .car-main-swiper-full .swiper-button-next:after,
+            .car-main-swiper-full .swiper-button-prev:after {
+              font-size: 14px !important;
+              font-weight: 700 !important;
+            }
+            
+            .car-main-swiper-full .swiper-button-next {
+              right: 8px !important;
+            }
+            
+            .car-main-swiper-full .swiper-button-prev {
+              left: 8px !important;
+            }
+
+            .car-main-swiper-full .swiper-pagination-bullet {
+              background: #ffffff;
+              opacity: 0.5;
+            }
+
+            .car-main-swiper-full .swiper-pagination-bullet-active {
+              opacity: 1;
+              background: var(--primary-green, #2d6b5b);
+            }
+            
+            @media (max-width: 768px) {
+              .car-main-swiper-full .swiper-button-next,
+              .car-main-swiper-full .swiper-button-prev {
+                display: none !important;
               }
             }
           `}} />
@@ -314,18 +344,18 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
           <div style={{
             position: 'relative',
             width: '100%',
-            marginBottom: '4rem',
-            padding: 'clamp(1.5rem, 4vw, 3rem)'
+            marginBottom: 0,
+            padding: 'clamp(0.5rem, 2vw, 1.5rem) clamp(0.67rem, 2vw, 1.33rem)'
           }}>
             {/* Main Info Grid - Elegant Layout */}
             <div style={{
               display: 'grid',
               gridTemplateColumns: '1fr 2fr 1fr',
-              gap: 'clamp(1.5rem, 3vw, 2.5rem)',
+              gap: 'clamp(0.75rem, 2vw, 1.5rem)',
               alignItems: 'center',
               maxWidth: '1000px',
               margin: '0 auto',
-              padding: '2rem 0'
+              padding: '1rem 0'
             }}
             className="luxury-car-info-grid"
             >
@@ -333,7 +363,7 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
               <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '1.25rem',
+                gap: '0.75rem',
                 alignItems: 'flex-start',
                 textAlign: 'left'
               }}
@@ -341,19 +371,19 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
               >
                 <div>
                   <div style={{
-                    fontSize: '0.7rem',
+                    fontSize: '0.55rem',
                     fontWeight: '500',
                     color: '#999',
                     textTransform: 'uppercase',
                     letterSpacing: '0.15em',
-                    marginBottom: '0.35rem'
+                    marginBottom: '0.25rem'
                   }}>
                     {cars[activeIndex].brand}
                   </div>
                   <div style={{
-                    fontSize: '1.5rem',
+                    fontSize: '1rem',
                     fontWeight: '300',
-                    color: '#0a0a0a',
+                    color: '#ffffff',
                     letterSpacing: '-0.02em',
                     lineHeight: '1.1'
                   }}>
@@ -361,9 +391,9 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
                   </div>
                 </div>
                 <div style={{
-                  width: '40px',
+                  width: '30px',
                   height: '1px',
-                  background: 'linear-gradient(90deg, #0a0a0a 0%, transparent 100%)'
+                  background: 'linear-gradient(90deg, #ffffff 0%, transparent 100%)'
                 }}></div>
               </div>
 
@@ -372,13 +402,13 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
                 textAlign: 'center',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '1.25rem'
+                gap: '0.75rem'
               }}>
                 <div>
                   <h2 style={{
-                    fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
+                    fontSize: 'clamp(1.1rem, 2.5vw, 1.6rem)',
                     fontWeight: '200',
-                    color: '#0a0a0a',
+                    color: '#ffffff',
                     margin: 0,
                     textTransform: 'uppercase',
                     letterSpacing: '0.05em',
@@ -388,10 +418,10 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
                     {cars[activeIndex].name.split(' ').slice(0, -1).join(' ')}
                   </h2>
                   <h3 style={{
-                    fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+                    fontSize: 'clamp(0.9rem, 2vw, 1.3rem)',
                     fontWeight: '700',
-                    color: '#0a0a0a',
-                    margin: '0.35rem 0 0 0',
+                    color: '#ffffff',
+                    margin: '0.25rem 0 0 0',
                     textTransform: 'uppercase',
                     letterSpacing: '0.1em',
                     lineHeight: '1.1'
@@ -400,9 +430,9 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
                   </h3>
                 </div>
                 <p style={{
-                  fontSize: '0.95rem',
-                  color: '#666',
-                  lineHeight: '1.7',
+                  fontSize: '0.7rem',
+                  color: '#999',
+                  lineHeight: '1.5',
                   maxWidth: '500px',
                   margin: '0 auto',
                   fontWeight: '300',
@@ -416,26 +446,26 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
               <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '1.25rem',
+                gap: '0.75rem',
                 alignItems: 'flex-end'
               }}
               className="luxury-car-info-right"
               >
                 <div style={{ textAlign: 'right' }}>
                   <div style={{
-                    fontSize: '0.7rem',
+                    fontSize: '0.55rem',
                     fontWeight: '500',
                     color: '#999',
                     textTransform: 'uppercase',
                     letterSpacing: '0.15em',
-                    marginBottom: '0.35rem'
+                    marginBottom: '0.25rem'
                   }}>
                     Power
                   </div>
                   <div style={{
-                    fontSize: '1.5rem',
+                    fontSize: '1rem',
                     fontWeight: '300',
-                    color: '#0a0a0a',
+                    color: '#ffffff',
                     letterSpacing: '-0.02em',
                     lineHeight: '1.1'
                   }}>
@@ -443,9 +473,9 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
                   </div>
                 </div>
                 <div style={{
-                  width: '40px',
+                  width: '30px',
                   height: '1px',
-                  background: 'linear-gradient(270deg, #0a0a0a 0%, transparent 100%)',
+                  background: 'linear-gradient(270deg, #ffffff 0%, transparent 100%)',
                   marginLeft: 'auto'
                 }}></div>
               </div>
@@ -455,10 +485,10 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
             <div style={{
               display: 'flex',
               justifyContent: 'center',
-              gap: 'clamp(1.5rem, 5vw, 3.5rem)',
-              marginTop: '2.5rem',
-              paddingTop: '2.5rem',
-              borderTop: '1px solid rgba(0, 0, 0, 0.08)',
+              gap: 'clamp(0.75rem, 2.5vw, 2rem)',
+              marginTop: 'clamp(0.75rem, 2vw, 1.5rem)',
+              paddingTop: 'clamp(0.75rem, 2vw, 1.5rem)',
+              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
               flexWrap: 'wrap'
             }}
             className="luxury-stats-bar"
@@ -466,19 +496,19 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
               {/* Acceleration */}
               <div style={{ textAlign: 'center' }}>
                 <div style={{
-                  fontSize: '0.65rem',
+                  fontSize: '0.5rem',
                   fontWeight: '500',
                   color: '#999',
                   textTransform: 'uppercase',
                   letterSpacing: '0.2em',
-                  marginBottom: '0.5rem'
+                  marginBottom: '0.35rem'
                 }}>
                   Acceleration
                 </div>
                 <div style={{
-                  fontSize: '1.25rem',
+                  fontSize: '0.85rem',
                   fontWeight: '300',
-                  color: '#0a0a0a',
+                  color: '#ffffff',
                   letterSpacing: '-0.02em'
                 }}>
                   {cars[activeIndex].acceleration}
@@ -488,19 +518,19 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
               {/* Top Speed */}
               <div style={{ textAlign: 'center' }}>
                 <div style={{
-                  fontSize: '0.65rem',
+                  fontSize: '0.5rem',
                   fontWeight: '500',
                   color: '#999',
                   textTransform: 'uppercase',
                   letterSpacing: '0.2em',
-                  marginBottom: '0.5rem'
+                  marginBottom: '0.35rem'
                 }}>
                   Top Speed
                 </div>
                 <div style={{
-                  fontSize: '1.25rem',
+                  fontSize: '0.85rem',
                   fontWeight: '300',
-                  color: '#0a0a0a',
+                  color: '#ffffff',
                   letterSpacing: '-0.02em'
                 }}>
                   {cars[activeIndex].topSpeed}
@@ -510,19 +540,19 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
               {/* Drivetrain */}
               <div style={{ textAlign: 'center' }}>
                 <div style={{
-                  fontSize: '0.65rem',
+                  fontSize: '0.5rem',
                   fontWeight: '500',
                   color: '#999',
                   textTransform: 'uppercase',
                   letterSpacing: '0.2em',
-                  marginBottom: '0.5rem'
+                  marginBottom: '0.35rem'
                 }}>
                   Drivetrain
                 </div>
                 <div style={{
-                  fontSize: '1.25rem',
+                  fontSize: '0.85rem',
                   fontWeight: '300',
-                  color: '#0a0a0a',
+                  color: '#ffffff',
                   letterSpacing: '-0.02em'
                 }}>
                   {cars[activeIndex].drivetrain}
@@ -532,19 +562,19 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
               {/* Transmission */}
               <div style={{ textAlign: 'center' }}>
                 <div style={{
-                  fontSize: '0.65rem',
+                  fontSize: '0.5rem',
                   fontWeight: '500',
                   color: '#999',
                   textTransform: 'uppercase',
                   letterSpacing: '0.2em',
-                  marginBottom: '0.5rem'
+                  marginBottom: '0.35rem'
                 }}>
                   Transmission
                 </div>
                 <div style={{
-                  fontSize: '1.25rem',
+                  fontSize: '0.85rem',
                   fontWeight: '300',
-                  color: '#0a0a0a',
+                  color: '#ffffff',
                   letterSpacing: '-0.02em'
                 }}>
                   {cars[activeIndex].transmission}
@@ -555,32 +585,16 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
             {/* View Details Button */}
             <div style={{
               textAlign: 'center',
-              marginTop: '2.5rem'
+              marginTop: 'clamp(0.5rem, 1.33vw, 1rem)',
+              marginBottom: 0
             }}>
               <button 
+                className="btn-view-all-collections"
                 onClick={() => handleCarClick(cars[activeIndex].id)}
                 style={{
-                  padding: '0.9rem 2rem',
-                  background: 'transparent',
-                  color: '#0a0a0a',
-                  border: '1px solid #0a0a0a',
-                  borderRadius: '0',
+                  padding: '10px 28px',
                   fontSize: '0.75rem',
-                  fontWeight: '500',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.15em',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  position: 'relative',
-                  overflow: 'hidden'
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.background = '#0a0a0a';
-                  e.currentTarget.style.color = '#ffffff';
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.background = 'transparent';
-                  e.currentTarget.style.color = '#0a0a0a';
+                  borderRadius: '30px'
                 }}
               >
                 Explore Details
@@ -594,31 +608,39 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
           <div style={{
             width: '100%',
             height: '1px',
-            background: 'rgba(0, 0, 0, 0.1)',
-            margin: '6rem 0 4rem'
+            background: 'rgba(255, 255, 255, 0.1)',
+            margin: 'clamp(0.67rem, 1.33vw, 1rem) 0 clamp(0.67rem, 1.33vw, 1.33rem)'
           }}></div>
 
-          {/* Popular Brands Section */}
+          {/* Popular Brands Section - Full Width */}
           <div style={{
-            maxWidth: '1200px',
-            margin: '0 auto',
-            padding: '0 2rem',
+            width: '100vw',
+            marginLeft: 'calc(-50vw + 50%)',
+            padding: '0 clamp(1rem, 4vw, 2rem)',
             textAlign: 'center'
-          }}>
+          }}
+          className="category-brands-container"
+          >
+            <div style={{
+              maxWidth: '1200px',
+              margin: '0 auto'
+            }}>
             <h3 style={{
-              fontSize: '1.5rem',
+              fontSize: 'clamp(1.1rem, 3vw, 1.5rem)',
               fontWeight: '700',
-              color: '#0a0a0a',
-              marginBottom: '1rem',
+              color: '#ffffff',
+              marginBottom: 'clamp(0.75rem, 2vw, 1rem)',
               textTransform: 'uppercase',
-              letterSpacing: '0.05em'
+              letterSpacing: '0.05em',
+              lineHeight: '1.3'
             }}>
               POPULAR EXOTIC & LUXURY RENTAL MAKES
             </h3>
             <p style={{
-              fontSize: '1rem',
-              color: '#666',
-              marginBottom: '3rem'
+              fontSize: 'clamp(0.875rem, 2.5vw, 1rem)',
+              color: '#999',
+              marginBottom: 'clamp(2rem, 5vw, 3rem)',
+              lineHeight: '1.6'
             }}>
               The finest purveyors of supercars, sports cars, and limos.
             </p>
@@ -628,13 +650,17 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              gap: '1rem',
-              marginBottom: '3rem',
+              gap: 'clamp(0.33rem, 1vw, 0.5rem)',
+              marginBottom: 'clamp(0.67rem, 1.33vw, 1rem)',
               flexWrap: 'nowrap',
               position: 'relative',
               overflow: 'hidden',
-              padding: '0 2rem'
-            }}>
+              padding: '0 clamp(0.5rem, 2vw, 2rem)',
+              maxWidth: '1400px',
+              margin: '0 auto'
+            }}
+            className="category-brands-grid"
+            >
               {(() => {
                 const prevIndex = activeIndex === 0 ? cars.length - 1 : activeIndex - 1;
                 const nextIndex = activeIndex === cars.length - 1 ? 0 : activeIndex + 1;
@@ -653,40 +679,46 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
                       }
                     }}
                     style={{
-                      padding: isActive ? '2.5rem 2rem' : '2rem 1.5rem',
-                      background: isActive ? '#f8f9fa' : '#ffffff',
-                      borderRadius: '12px',
+                      padding: isActive ? 'clamp(0.5rem, 1.33vw, 1rem) clamp(0.5rem, 1.33vw, 0.83rem)' : 'clamp(0.4rem, 1vw, 0.83rem) clamp(0.4rem, 1vw, 0.67rem)',
+                      background: isActive ? '#1a1a1a' : '#0f0f0f',
+                      borderRadius: 'clamp(4px, 1vw, 6.67px)',
                       transition: 'all 0.3s ease',
-                      border: isActive ? '2px solid #0a0a0a' : '2px solid #e5e5e5',
+                      border: isActive ? '2px solid #ffffff' : '2px solid #2a2a2a',
                       cursor: 'pointer',
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      height: isActive ? '200px' : '160px',
-                      width: isActive ? '200px' : '160px',
-                      boxShadow: isActive ? '0 8px 24px rgba(0,0,0,0.15)' : '0 4px 12px rgba(0,0,0,0.05)',
-                      zIndex: isActive ? 10 : 2
+                      height: isActive ? 'clamp(67px, 12vw, 93px)' : 'clamp(60px, 10.67vw, 80px)',
+                      width: isActive ? 'clamp(67px, 12vw, 93px)' : 'clamp(60px, 10.67vw, 80px)',
+                      boxShadow: isActive ? '0 4px 12px rgba(0,0,0,0.5)' : '0 2px 6px rgba(0,0,0,0.3)',
+                      zIndex: isActive ? 10 : 2,
+                      minWidth: '53px'
                     }}
                     onMouseOver={(e) => {
                       if (!isActive) {
-                        e.currentTarget.style.background = '#f8f9fa';
-                        e.currentTarget.style.borderColor = '#0a0a0a';
+                        e.currentTarget.style.background = '#1a1a1a';
+                        e.currentTarget.style.borderColor = '#3a3a3a';
                       }
                     }}
                     onMouseOut={(e) => {
                       if (!isActive) {
-                        e.currentTarget.style.background = '#ffffff';
-                        e.currentTarget.style.borderColor = '#e5e5e5';
+                        e.currentTarget.style.background = '#0f0f0f';
+                        e.currentTarget.style.borderColor = '#2a2a2a';
                       }
                     }}
                   >
                     <Image 
                       src={car.logo} 
                       alt={car.brand}
-                      width={isActive ? 150 : 120}
-                      height={isActive ? 100 : 80}
-                      style={{ objectFit: 'contain', maxWidth: '100%', height: 'auto' }}
+                      width={isActive ? 67 : 53}
+                      height={isActive ? 47 : 37}
+                      style={{ 
+                        objectFit: 'contain', 
+                        maxWidth: '100%', 
+                        height: 'auto',
+                        width: isActive ? 'clamp(47px, 10vw, 67px)' : 'clamp(40px, 8.67vw, 53px)'
+                      }}
                     />
                   </div>
                 ));
@@ -695,7 +727,7 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
 
             {/* Brand Description */}
             <div style={{
-              marginTop: '3rem',
+              marginTop: 'clamp(1rem, 2vw, 1.5rem)',
               paddingLeft: '0',
               borderLeft: 'none',
               display: 'flex',
@@ -703,37 +735,55 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
               alignItems: 'center'
             }}>
               <p style={{
-                fontSize: '1.1rem',
-                color: '#666',
+                fontSize: 'clamp(0.95rem, 2.5vw, 1.1rem)',
+                color: '#999',
                 lineHeight: '1.8',
-                marginBottom: '2rem',
+                marginBottom: 'clamp(1.5rem, 4vw, 2rem)',
                 maxWidth: '700px',
-                textAlign: 'center'
+                textAlign: 'center',
+                padding: '0 clamp(0.5rem, 2vw, 1rem)'
               }}>
                 {cars[activeIndex].brandDescription}
               </p>
               <button 
                 onClick={() => router.push(`/brands/${cars[activeIndex].brand.toLowerCase().replace(/\s+/g, '-')}`)}
                 style={{
-                  padding: '1rem 2.5rem',
-                  background: '#0a0a0a',
-                  color: '#ffffff',
+                  padding: 'clamp(0.875rem, 2vw, 1rem) clamp(1.75rem, 4vw, 2.5rem)',
+                  background: '#ffffff',
+                  color: '#0a0a0a',
                   border: 'none',
-                  borderRadius: '8px',
-                  fontSize: '1rem',
+                  borderRadius: 'clamp(6px, 1.5vw, 8px)',
+                  fontSize: 'clamp(0.875rem, 2vw, 1rem)',
                   fontWeight: '600',
                   cursor: 'pointer',
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
+                  width: 'clamp(200px, 80%, 300px)'
                 }}
-                onMouseOver={(e) => e.currentTarget.style.background = '#333'}
-                onMouseOut={(e) => e.currentTarget.style.background = '#0a0a0a'}
+                onMouseOver={(e) => e.currentTarget.style.background = '#e5e5e5'}
+                onMouseOut={(e) => e.currentTarget.style.background = '#ffffff'}
               >
                 Buy a {cars[activeIndex].brand}
               </button>
             </div>
+            </div>
           </div>
         </div>
       </section>
+
+      {/* CTA Section */}
+      <section className="categories-cta-section">
+        <div className="container">
+          <div className="categories-cta-content">
+            <h2 className="categories-cta-title">Can't Find What You're Looking For?</h2>
+            <p className="categories-cta-text">Contact our team and we'll help you find the perfect vehicle</p>
+            <Link href="/#contact" className="categories-cta-btn">
+              Contact Us
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <Footer scrollToSection={scrollToSection} />
     </div>
   );
 }

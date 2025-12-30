@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
+import logo from '../assets/solid-logo.png';
 
 export default function FloatingNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -62,7 +64,21 @@ export default function FloatingNavbar() {
       <nav className={`floating-navbar ${isScrolled ? 'floating-navbar-scrolled' : ''}`}>
         <div className="floating-navbar-container">
           <Link href="/" className="floating-navbar-logo">
-            <span className="floating-navbar-logo-text">Karzone</span>
+            <Image 
+              src={logo} 
+              alt="Karzone" 
+              width={120}
+              height={35}
+              style={{ 
+                height: 'auto',
+                width: 'auto',
+                maxWidth: '120px',
+                minWidth: '80px',
+                objectFit: 'contain',
+                display: 'block'
+              }}
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}

@@ -1,7 +1,33 @@
-/* Global Styles */
+/* Global Styles - EC Auto Brand Theme */
 :root {
-  --background: #0a0a0a;
-  --foreground: #e0e0e0;
+  /* Brand Colors - Black Theme */
+  --primary-green: #0a0a0a;
+  --primary-green-dark: #000000;
+  --primary-green-light: #1a1a1a;
+  --primary-green-lighter: #2a2a2a;
+  --accent-green: #333333;
+  
+  /* Neutral Colors */
+  --background: #ffffff;
+  --background-secondary: #f8f9fa;
+  --background-dark: #0a0a0a;
+  --foreground: #1a1a1a;
+  --foreground-light: #4a4a4a;
+  --foreground-lighter: #6a6a6a;
+  
+  /* Text Colors */
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --text-light: #ffffff;
+  
+  /* Border Colors */
+  --border-color: #e0e0e0;
+  --border-color-dark: #0a0a0a;
+  
+  /* Shadow Colors */
+  --shadow-sm: 0 2px 4px rgba(10, 10, 10, 0.08);
+  --shadow-md: 0 4px 12px rgba(10, 10, 10, 0.12);
+  --shadow-lg: 0 8px 24px rgba(10, 10, 10, 0.16);
 }
 
 * {

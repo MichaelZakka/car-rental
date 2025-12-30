@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import '../../showroom.css';
+import Footer from '../../components/Footer';
 
 export default function CarDetailPage({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -115,6 +116,13 @@ export default function CarDetailPage({ params }: { params: { id: string } }) {
 
   const prevImage = () => {
     setCurrentImageIndex((prev) => (prev === 0 ? car.images.length - 1 : prev - 1));
+  };
+
+  const scrollToSection = (id: string) => {
+    // For car detail page, redirect to home page with hash
+    if (typeof window !== 'undefined') {
+      window.location.href = `/#${id}`;
+    }
   };
 
   return (
@@ -310,6 +318,21 @@ export default function CarDetailPage({ params }: { params: { id: string } }) {
           </div>
         </div>
       </section>
+
+      {/* CTA Section */}
+      <section className="categories-cta-section">
+        <div className="container">
+          <div className="categories-cta-content">
+            <h2 className="categories-cta-title">Ready to Experience This Vehicle?</h2>
+            <p className="categories-cta-text">Contact our team to schedule a test drive or get more information</p>
+            <Link href="/#contact" className="categories-cta-btn">
+              Contact Us
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <Footer scrollToSection={scrollToSection} />
     </div>
   );
 }

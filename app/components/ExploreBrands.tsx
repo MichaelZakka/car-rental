@@ -79,7 +79,7 @@ export default function ExploreBrands() {
                 onClick={() => router.push(`/brands/${brand.name.toLowerCase().replace(/\s+/g, '-')}`)}
                 style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '280px' }}
               >
-                <div className="brand-placeholder" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flex: '1' }}>
+                <div className="brand-placeholder" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', flex: '1', gap: '1rem' }}>
                   <Image 
                     src={brand.logo} 
                     alt={brand.name}
@@ -87,6 +87,7 @@ export default function ExploreBrands() {
                     height={80}
                     style={{ objectFit: 'contain' }}
                   />
+                  <h3 className="brand-name">{brand.name}</h3>
                 </div>
                 <p className="brand-count" style={{ marginTop: 'auto', textAlign: 'center' }}>{brand.count} vehicles</p>
               </div>

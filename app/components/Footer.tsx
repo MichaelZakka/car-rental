@@ -1,5 +1,8 @@
 'use client';
 
+import Image from 'next/image';
+import logo from '../assets/solid-logo.png';
+
 interface FooterProps {
   scrollToSection: (id: string) => void;
 }
@@ -10,7 +13,21 @@ export default function Footer({ scrollToSection }: FooterProps) {
       <div className="container">
         <div className="footer-content">
           <div className="footer-brand">
-            <h3 className="footer-logo">Karzone</h3>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
+              <Image 
+                src={logo} 
+                alt="Karzone" 
+                width={200}
+                height={60}
+                style={{ 
+                  height: 'auto',
+                  width: 'auto',
+                  maxWidth: '200px',
+                  objectFit: 'contain',
+                  display: 'block'
+                }}
+              />
+            </div>
             <p className="footer-tagline">Premium Luxury Car Rental Experience</p>
           </div>
           <div className="footer-links">

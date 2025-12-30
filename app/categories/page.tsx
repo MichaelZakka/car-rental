@@ -56,50 +56,29 @@ export default function CategoriesPage() {
 
   return (
     <div className="showroom-page">
-      {/* Creative Hero Header */}
-      <header className="categories-hero">
-        
-        <div className="categories-hero-background">
-          <div className="categories-hero-image"></div>
-          <div className="categories-hero-overlay"></div>
-        </div>
-
-        <div className="categories-hero-content">
-          <div className="container">
-            <div className="categories-hero-inner">
-              <div className="categories-hero-badge">
-                <span className="badge-text">Browse Collection</span>
-              </div>
-              <h1 className="categories-hero-title">
-                <span className="title-line-1">Find Your</span>
-                <span className="title-line-2">Perfect Vehicle</span>
-              </h1>
-              <p className="categories-hero-description">
-                Discover your dream car from our carefully curated categories. From luxury sedans to high-performance sports cars.
-              </p>
-              <div className="categories-hero-stats">
-                <div className="hero-stat">
-                  <div className="stat-number">4</div>
-                  <div className="stat-label">CATEGORIES</div>
-                </div>
-                <div className="hero-stat">
-                  <div className="stat-number">69+</div>
-                  <div className="stat-label">VEHICLES</div>
-                </div>
-                <div className="hero-stat">
-                  <div className="stat-number">100%</div>
-                  <div className="stat-label">VERIFIED</div>
-                </div>
-              </div>
+      {/* Hero Section */}
+      <section className="brands-page-hero">
+        <div className="brands-hero-content">
+          <h1 className="brands-hero-title">Find Your Perfect Vehicle</h1>
+          <p className="brands-hero-subtitle">
+            Discover your dream car from our carefully curated categories. From luxury sedans to high-performance sports cars.
+          </p>
+          <div className="categories-hero-stats">
+            <div className="hero-stat">
+              <div className="stat-number">4</div>
+              <div className="stat-label">CATEGORIES</div>
+            </div>
+            <div className="hero-stat">
+              <div className="stat-number">69+</div>
+              <div className="stat-label">VEHICLES</div>
+            </div>
+            <div className="hero-stat">
+              <div className="stat-number">100%</div>
+              <div className="stat-label">VERIFIED</div>
             </div>
           </div>
         </div>
-
-        <div className="categories-hero-scroll">
-          <span className="scroll-text">Scroll to Explore</span>
-          <div className="scroll-line"></div>
-        </div>
-      </header>
+      </section>
 
       {/* Categories Grid */}
       <section className="categories-page-section">

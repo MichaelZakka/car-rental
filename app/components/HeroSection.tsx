@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
+import Image from 'next/image';
+import logo from '../assets/solid-logo.png';
 
 interface HeroSectionProps {
   scrollToSection: (id: string) => void;
@@ -34,8 +36,22 @@ export default function HeroSection({ scrollToSection }: HeroSectionProps) {
       ></div>
       <div className="hero-overlay"></div>
       <div className="hero-content">
-        <div className="hero-logo hero-fade-in" style={{ animationDelay: '0.2s' }}>
-          <h1 className="dealership-name">Karzone</h1>
+        <div className="hero-logo hero-fade-in" style={{ animationDelay: '0.2s', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Image 
+            src={logo} 
+            alt="Karzone" 
+            width={300}
+            height={100}
+            style={{ 
+              height: 'auto',
+              width: 'auto',
+              maxWidth: '400px',
+              objectFit: 'contain',
+              margin: '0 auto',
+              display: 'block'
+            }}
+            priority
+          />
           <div className="logo-divider"></div>
         </div>
         <h2 className="hero-tagline hero-fade-in" style={{ animationDelay: '0.4s' }}>

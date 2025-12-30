@@ -1,5 +1,7 @@
 'use client';
 
+import { FaTrophy, FaCheckCircle, FaDollarSign, FaWrench, FaExchangeAlt, FaStar } from 'react-icons/fa';
+
 interface Benefit {
   icon: string;
   title: string;
@@ -10,6 +12,16 @@ interface WhyChooseUsProps {
   benefits: Benefit[];
 }
 
+// Map emoji icons to Font Awesome icons
+const iconMap: { [key: string]: React.ReactNode } = {
+  '🏆': <FaTrophy />,
+  '✓': <FaCheckCircle />,
+  '💰': <FaDollarSign />,
+  '🔧': <FaWrench />,
+  '🔄': <FaExchangeAlt />,
+  '⭐': <FaStar />,
+};
+
 export default function WhyChooseUs({ benefits }: WhyChooseUsProps) {
   return (
     <section id="why-choose-us" className="why-choose-section">
@@ -18,7 +30,9 @@ export default function WhyChooseUs({ benefits }: WhyChooseUsProps) {
         <div className="benefits-grid">
           {benefits.map((benefit, index) => (
             <div key={index} className="benefit-card">
-              <div className="benefit-icon">{benefit.icon}</div>
+              <div className="benefit-icon">
+                {iconMap[benefit.icon] || <FaStar />}
+              </div>
               <h3 className="benefit-title">{benefit.title}</h3>
               <p className="benefit-description">{benefit.description}</p>
             </div>

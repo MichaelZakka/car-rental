@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import '../../showroom.css';
+import Footer from '../../components/Footer';
 
 export default function BrandDetailPage({ params }: { params: { brandId: string } }) {
   const router = useRouter();
@@ -103,6 +104,13 @@ export default function BrandDetailPage({ params }: { params: { brandId: string 
 
   const brand = brandData[params.brandId] || brandData['bmw'];
 
+  const scrollToSection = (id: string) => {
+    // For brand detail page, redirect to home page with hash
+    if (typeof window !== 'undefined') {
+      window.location.href = `/#${id}`;
+    }
+  };
+
   // Sample cars - in real app, filter by brand
   const cars = [
     {
@@ -188,35 +196,23 @@ export default function BrandDetailPage({ params }: { params: { brandId: string 
   return (
     <div className="showroom-page">
       {/* Brand Hero */}
-      <section className="brand-detail-hero">
-        <div className="brand-detail-hero-bg" style={{ backgroundImage: `url(${brand.image})` }}>
-          <div className="brand-detail-hero-overlay"></div>
-        </div>
-        <div className="container">
-          <div className="brand-detail-hero-content">
-            <h1 className="brand-detail-title">{brand.name}</h1>
-            <p className="brand-detail-tagline">{brand.tagline}</p>
-            <div className="brand-detail-info-row">
-              <div className="brand-info-item">
-                <span className="brand-info-label">Founded</span>
-                <span className="brand-info-value">{brand.founded}</span>
-              </div>
-              <div className="brand-info-item">
-                <span className="brand-info-label">Headquarters</span>
-                <span className="brand-info-value">{brand.headquarters}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* About Brand */}
-      <section className="brand-about-section">
-        <div className="container">
-          <div className="brand-about-content">
-            <h2 className="brand-about-title">About {brand.name}</h2>
-            <p className="brand-about-description">{brand.description}</p>
-          </div>
+      <section className="brands-page-hero">
+        <div className="brands-hero-content">
+          <h1 className="brands-hero-title">{brand.name}</h1>
+          <p className="brands-hero-subtitle">
+            {brand.tagline}
+          </p>
+          <p className="brands-hero-description" style={{ 
+            marginTop: '2rem', 
+            fontSize: '1.125rem', 
+            lineHeight: '1.8', 
+            color: 'rgba(255, 255, 255, 0.9)',
+            maxWidth: '800px',
+            marginLeft: 'auto',
+            marginRight: 'auto'
+          }}>
+            {brand.description}
+          </p>
         </div>
       </section>
 
@@ -292,6 +288,8 @@ export default function BrandDetailPage({ params }: { params: { brandId: string 
           </div>
         </div>
       </section>
+
+      <Footer scrollToSection={scrollToSection} />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Image from 'next/image';
 import '../showroom.css';
+import Footer from '../components/Footer';
 import bmwLogo from '../assets/logos/BMW LOGO.png';
 import mercedesLogo from '../assets/logos/Mercedes-logo.png';
 import jaguarLogo from '../assets/logos/Jaguar_Logo.png';
@@ -86,6 +87,13 @@ export default function BrandsPage() {
     },
   ];
 
+  const scrollToSection = (id: string) => {
+    // For brands page, redirect to home page with hash
+    if (typeof window !== 'undefined') {
+      window.location.href = `/#${id}`;
+    }
+  };
+
   return (
     <div className="showroom-page">
       <section className="brands-page-hero">
@@ -155,6 +163,8 @@ export default function BrandsPage() {
           </div>
         </div>
       </section>
+
+      <Footer scrollToSection={scrollToSection} />
     </div>
   );
 }

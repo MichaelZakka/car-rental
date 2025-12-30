@@ -1,5 +1,7 @@
 'use client';
 
+import { FaCar, FaClipboardList, FaCreditCard, FaCog, FaShieldAlt, FaTruck } from 'react-icons/fa';
+
 interface Service {
   icon: string;
   title: string;
@@ -10,6 +12,16 @@ interface ServicesProps {
   services: Service[];
 }
 
+// Map emoji icons to Font Awesome icons
+const iconMap: { [key: string]: React.ReactNode } = {
+  '🚗': <FaCar />,
+  '📋': <FaClipboardList />,
+  '💳': <FaCreditCard />,
+  '⚙️': <FaCog />,
+  '🛡️': <FaShieldAlt />,
+  '🚚': <FaTruck />,
+};
+
 export default function Services({ services }: ServicesProps) {
   return (
     <section id="services" className="services-section">
@@ -18,7 +30,9 @@ export default function Services({ services }: ServicesProps) {
         <div className="services-grid">
           {services.map((service, index) => (
             <div key={index} className="service-card">
-              <div className="service-icon">{service.icon}</div>
+              <div className="service-icon">
+                {iconMap[service.icon] || <FaCar />}
+              </div>
               <h3 className="service-title">{service.title}</h3>
               <p className="service-description">{service.description}</p>
             </div>
