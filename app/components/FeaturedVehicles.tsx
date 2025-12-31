@@ -476,7 +476,7 @@ export default function FeaturedVehicles({ vehicles }: FeaturedVehiclesProps) {
             }}>
               {extendedVehicles[activeIndex].drivetrain}
             </div>
-          </div>
+              </div>
 
           <div style={{ textAlign: 'center' }}>
             <div style={{
@@ -488,7 +488,7 @@ export default function FeaturedVehicles({ vehicles }: FeaturedVehiclesProps) {
               marginBottom: '0.35rem'
             }}>
               Transmission
-            </div>
+                  </div>
             <div style={{
               fontSize: '0.85rem',
               fontWeight: '300',
@@ -496,9 +496,9 @@ export default function FeaturedVehicles({ vehicles }: FeaturedVehiclesProps) {
               letterSpacing: '-0.02em'
             }}>
               {extendedVehicles[activeIndex].transmission}
-            </div>
-          </div>
-        </div>
+                  </div>
+                  </div>
+                </div>
 
         {/* View Details Button */}
         <div style={{
@@ -516,9 +516,9 @@ export default function FeaturedVehicles({ vehicles }: FeaturedVehiclesProps) {
             }}
           >
             Explore Details
-          </button>
-        </div>
-      </div>
+                </button>
+              </div>
+            </div>
 
       {/* Divider Line */}
       <div className="container" style={{ maxWidth: '1400px' }}>
@@ -614,8 +614,8 @@ export default function FeaturedVehicles({ vehicles }: FeaturedVehiclesProps) {
                 </div>
               ));
             })()}
-          </div>
         </div>
+      </div>
     </section>
   );
 }

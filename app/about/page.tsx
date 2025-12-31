@@ -1,8 +1,15 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import { FaBullseye, FaHandshake, FaGem, FaBolt } from 'react-icons/fa';
 import Footer from '../components/Footer';
 import '../showroom.css';
+import logo from '../assets/solid-logo.png';
+import bmwLogo from '../assets/logos/BMW LOGO.png';
+import jaguarLogo from '../assets/logos/Jaguar_Logo.png';
+import lamboLogo from '../assets/logos/Lambo_Logo.png';
+import mercedesLogo from '../assets/logos/Mercedes-logo.png';
 
 export default function AboutPage() {
   const [isVisible, setIsVisible] = useState<{ [key: string]: boolean }>({});
@@ -41,9 +48,29 @@ export default function AboutPage() {
       <section className="about-hero">
         <div className="about-hero-overlay"></div>
         <div className="container about-hero-content">
-          <h1 className="about-hero-title">About Karzone</h1>
-          <p className="about-hero-subtitle">
-            Premium Luxury Car Rental Experience Since 2004
+          <div className="hero-logo hero-fade-in" style={{ animationDelay: '0.2s', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Image 
+              src={logo} 
+              alt="Karzone" 
+              width={300}
+              height={100}
+              style={{ 
+                height: 'auto',
+                width: 'auto',
+                maxWidth: '400px',
+                objectFit: 'contain',
+                margin: '0 auto',
+                display: 'block'
+              }}
+              priority
+            />
+            <div className="logo-divider"></div>
+          </div>
+          <h2 className="hero-tagline hero-fade-in" style={{ animationDelay: '0.4s' }}>
+            Luxury Car Rental
+          </h2>
+          <p className="hero-subtitle hero-fade-in" style={{ animationDelay: '0.6s' }}>
+            Experience Premium Mobility
           </p>
         </div>
       </section>
@@ -142,7 +169,9 @@ export default function AboutPage() {
           <h2 className="section-title">Our Mission & Values</h2>
           <div className="about-values-grid">
             <div className="about-value-card fade-in-section" id="value-1">
-              <div className="about-value-icon">🎯</div>
+              <div className="about-value-icon">
+                <FaBullseye />
+              </div>
               <h3 className="about-value-title">Excellence</h3>
               <p className="about-value-description">
                 We are committed to providing the highest quality vehicles and service, 
@@ -150,7 +179,9 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="about-value-card fade-in-section" id="value-2">
-              <div className="about-value-icon">🤝</div>
+              <div className="about-value-icon">
+                <FaHandshake />
+              </div>
               <h3 className="about-value-title">Trust</h3>
               <p className="about-value-description">
                 Building lasting relationships with our customers through transparency, 
@@ -158,7 +189,9 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="about-value-card fade-in-section" id="value-3">
-              <div className="about-value-icon">💎</div>
+              <div className="about-value-icon">
+                <FaGem />
+              </div>
               <h3 className="about-value-title">Luxury</h3>
               <p className="about-value-description">
                 Curating an exclusive collection of premium vehicles that deliver 
@@ -166,7 +199,9 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="about-value-card fade-in-section" id="value-4">
-              <div className="about-value-icon">⚡</div>
+              <div className="about-value-icon">
+                <FaBolt />
+              </div>
               <h3 className="about-value-title">Innovation</h3>
               <p className="about-value-description">
                 Staying ahead of industry trends and embracing new technologies 
@@ -266,133 +301,132 @@ export default function AboutPage() {
           <p className="about-brands-subtitle">
             Access the world's most prestigious automotive brands, all maintained to perfection
           </p>
-          <div className="about-brands-logo-grid">
-            <div className="about-brand-logo-card fade-in-section" id="brand-1">
-              <div className="about-brand-logo-wrapper">
-                <svg viewBox="0 0 200 200" className="about-brand-logo">
-                  <circle cx="100" cy="100" r="95" fill="#ffffff" />
-                  <text x="100" y="115" fontSize="32" fontWeight="700" fill="#000000" textAnchor="middle">Mercedes</text>
-                  <text x="100" y="145" fontSize="24" fontWeight="400" fill="#000000" textAnchor="middle">Benz</text>
-                </svg>
+          <div className="about-brands-scroll-container">
+            <div className="about-brands-scroll-track">
+              {/* First set of brands */}
+              <div className="about-brand-logo-card">
+                <div className="about-brand-logo-wrapper">
+                  <Image src={mercedesLogo} alt="Mercedes-Benz" width={100} height={100} style={{ objectFit: 'contain' }} />
+                </div>
+                <p className="about-brand-name">Mercedes-Benz</p>
               </div>
-              <p className="about-brand-name">Mercedes-Benz</p>
-            </div>
-            
-            <div className="about-brand-logo-card fade-in-section" id="brand-2">
-              <div className="about-brand-logo-wrapper">
-                <svg viewBox="0 0 200 200" className="about-brand-logo">
-                  <circle cx="100" cy="100" r="95" fill="#ffffff" />
-                  <rect x="55" y="75" width="35" height="50" fill="#0066B1" />
-                  <rect x="110" y="75" width="35" height="50" fill="#0066B1" />
-                  <text x="100" y="160" fontSize="32" fontWeight="700" fill="#0066B1" textAnchor="middle">BMW</text>
-                </svg>
+              
+              <div className="about-brand-logo-card">
+                <div className="about-brand-logo-wrapper">
+                  <Image src={bmwLogo} alt="BMW" width={100} height={100} style={{ objectFit: 'contain' }} />
+                </div>
+                <p className="about-brand-name">BMW</p>
               </div>
-              <p className="about-brand-name">BMW</p>
-            </div>
-            
-            <div className="about-brand-logo-card fade-in-section" id="brand-3">
-              <div className="about-brand-logo-wrapper">
-                <svg viewBox="0 0 200 200" className="about-brand-logo">
-                  <circle cx="100" cy="100" r="95" fill="#ffffff" />
-                  <ellipse cx="100" cy="100" rx="60" ry="35" fill="none" stroke="#BB0A30" strokeWidth="8" />
-                  <ellipse cx="100" cy="100" rx="45" ry="25" fill="none" stroke="#BB0A30" strokeWidth="8" />
-                  <ellipse cx="100" cy="100" rx="30" ry="15" fill="none" stroke="#BB0A30" strokeWidth="8" />
-                  <ellipse cx="100" cy="100" rx="15" ry="8" fill="none" stroke="#BB0A30" strokeWidth="8" />
-                </svg>
+              
+              <div className="about-brand-logo-card">
+                <div className="about-brand-logo-wrapper">
+                  <Image src={jaguarLogo} alt="Jaguar" width={100} height={100} style={{ objectFit: 'contain' }} />
+                </div>
+                <p className="about-brand-name">Jaguar</p>
               </div>
-              <p className="about-brand-name">Audi</p>
-            </div>
-            
-            <div className="about-brand-logo-card fade-in-section" id="brand-4">
-              <div className="about-brand-logo-wrapper">
-                <svg viewBox="0 0 200 200" className="about-brand-logo">
-                  <rect x="30" y="30" width="140" height="140" fill="#000000" />
-                  <text x="100" y="120" fontSize="38" fontWeight="700" fill="#D5A155" textAnchor="middle">PORSCHE</text>
-                </svg>
+              
+              <div className="about-brand-logo-card">
+                <div className="about-brand-logo-wrapper">
+                  <Image src={lamboLogo} alt="Lamborghini" width={100} height={100} style={{ objectFit: 'contain' }} />
+                </div>
+                <p className="about-brand-name">Lamborghini</p>
               </div>
-              <p className="about-brand-name">Porsche</p>
-            </div>
-            
-            <div className="about-brand-logo-card fade-in-section" id="brand-5">
-              <div className="about-brand-logo-wrapper">
-                <svg viewBox="0 0 200 200" className="about-brand-logo">
-                  <rect x="20" y="70" width="160" height="60" fill="#E82127" rx="5" />
-                  <text x="100" y="115" fontSize="42" fontWeight="700" fill="#ffffff" textAnchor="middle">TESLA</text>
-                </svg>
+              
+              <div className="about-brand-logo-card">
+                <div className="about-brand-logo-wrapper">
+                  <Image src={mercedesLogo} alt="Mercedes-Benz" width={100} height={100} style={{ objectFit: 'contain' }} />
+                </div>
+                <p className="about-brand-name">Mercedes-Benz</p>
               </div>
-              <p className="about-brand-name">Tesla</p>
-            </div>
-            
-            <div className="about-brand-logo-card fade-in-section" id="brand-6">
-              <div className="about-brand-logo-wrapper">
-                <svg viewBox="0 0 200 200" className="about-brand-logo">
-                  <rect x="30" y="40" width="140" height="120" fill="#005A2B" />
-                  <text x="100" y="95" fontSize="28" fontWeight="700" fill="#D4AF37" textAnchor="middle">RANGE</text>
-                  <text x="100" y="130" fontSize="28" fontWeight="700" fill="#D4AF37" textAnchor="middle">ROVER</text>
-                </svg>
+              
+              <div className="about-brand-logo-card">
+                <div className="about-brand-logo-wrapper">
+                  <Image src={bmwLogo} alt="BMW" width={100} height={100} style={{ objectFit: 'contain' }} />
+                </div>
+                <p className="about-brand-name">BMW</p>
               </div>
-              <p className="about-brand-name">Range Rover</p>
-            </div>
-            
-            <div className="about-brand-logo-card fade-in-section" id="brand-7">
-              <div className="about-brand-logo-wrapper">
-                <svg viewBox="0 0 200 200" className="about-brand-logo">
-                  <circle cx="100" cy="100" r="80" fill="#1C3F3A" />
-                  <text x="100" y="115" fontSize="32" fontWeight="700" fill="#ffffff" textAnchor="middle">BENTLEY</text>
-                </svg>
+              
+              <div className="about-brand-logo-card">
+                <div className="about-brand-logo-wrapper">
+                  <Image src={jaguarLogo} alt="Jaguar" width={100} height={100} style={{ objectFit: 'contain' }} />
+                </div>
+                <p className="about-brand-name">Jaguar</p>
               </div>
-              <p className="about-brand-name">Bentley</p>
-            </div>
-            
-            <div className="about-brand-logo-card fade-in-section" id="brand-8">
-              <div className="about-brand-logo-wrapper">
-                <svg viewBox="0 0 200 200" className="about-brand-logo">
-                  <ellipse cx="100" cy="100" rx="85" ry="85" fill="none" stroke="#1C1C1C" strokeWidth="8" />
-                  <text x="100" y="115" fontSize="36" fontWeight="700" fill="#1C1C1C" textAnchor="middle">LEXUS</text>
-                </svg>
+              
+              <div className="about-brand-logo-card">
+                <div className="about-brand-logo-wrapper">
+                  <Image src={lamboLogo} alt="Lamborghini" width={100} height={100} style={{ objectFit: 'contain' }} />
+                </div>
+                <p className="about-brand-name">Lamborghini</p>
               </div>
-              <p className="about-brand-name">Lexus</p>
-            </div>
 
-            <div className="about-brand-logo-card fade-in-section" id="brand-9">
-              <div className="about-brand-logo-wrapper">
-                <svg viewBox="0 0 200 200" className="about-brand-logo">
-                  <circle cx="100" cy="100" r="85" fill="#C8102E" />
-                  <polygon points="100,40 70,110 100,95 130,110" fill="#ffffff" />
-                  <text x="100" y="165" fontSize="28" fontWeight="700" fill="#C8102E" textAnchor="middle">MASERATI</text>
-                </svg>
-              </div>
-              <p className="about-brand-name">Maserati</p>
-            </div>
 
-            <div className="about-brand-logo-card fade-in-section" id="brand-10">
-              <div className="about-brand-logo-wrapper">
-                <svg viewBox="0 0 200 200" className="about-brand-logo">
-                  <path d="M 100 30 L 160 100 L 100 170 L 40 100 Z" fill="#B4975A" />
-                  <text x="100" y="170" fontSize="24" fontWeight="700" fill="#B4975A" textAnchor="middle">CADILLAC</text>
-                </svg>
+              <div className="about-brand-logo-card">
+                <div className="about-brand-logo-wrapper">
+                  <svg viewBox="0 0 200 200" className="about-brand-logo">
+                    <rect x="40" y="60" width="120" height="80" fill="#001489" rx="5" />
+                    <text x="100" y="110" fontSize="32" fontWeight="700" fill="#ffffff" textAnchor="middle">JAGUAR</text>
+                  </svg>
+                </div>
+                <p className="about-brand-name">Jaguar</p>
               </div>
-              <p className="about-brand-name">Cadillac</p>
-            </div>
 
-            <div className="about-brand-logo-card fade-in-section" id="brand-11">
-              <div className="about-brand-logo-wrapper">
-                <svg viewBox="0 0 200 200" className="about-brand-logo">
-                  <rect x="40" y="60" width="120" height="80" fill="#001489" rx="5" />
-                  <text x="100" y="110" fontSize="32" fontWeight="700" fill="#ffffff" textAnchor="middle">JAGUAR</text>
-                </svg>
+              {/* Duplicate set for seamless loop */}
+              <div className="about-brand-logo-card">
+                <div className="about-brand-logo-wrapper">
+                  <Image src={mercedesLogo} alt="Mercedes-Benz" width={100} height={100} style={{ objectFit: 'contain' }} />
+                </div>
+                <p className="about-brand-name">Mercedes-Benz</p>
               </div>
-              <p className="about-brand-name">Jaguar</p>
-            </div>
-
-            <div className="about-brand-logo-card fade-in-section" id="brand-12">
-              <div className="about-brand-logo-wrapper">
-                <svg viewBox="0 0 200 200" className="about-brand-logo">
-                  <polygon points="100,30 160,80 140,150 60,150 40,80" fill="#000000" />
-                  <text x="100" y="180" fontSize="28" fontWeight="700" fill="#000000" textAnchor="middle">LAMBORGHINI</text>
-                </svg>
+              
+              <div className="about-brand-logo-card">
+                <div className="about-brand-logo-wrapper">
+                  <Image src={bmwLogo} alt="BMW" width={100} height={100} style={{ objectFit: 'contain' }} />
+                </div>
+                <p className="about-brand-name">BMW</p>
               </div>
-              <p className="about-brand-name">Lamborghini</p>
+              
+              <div className="about-brand-logo-card">
+                <div className="about-brand-logo-wrapper">
+                  <Image src={jaguarLogo} alt="Jaguar" width={100} height={100} style={{ objectFit: 'contain' }} />
+                </div>
+                <p className="about-brand-name">Jaguar</p>
+              </div>
+              
+              <div className="about-brand-logo-card">
+                <div className="about-brand-logo-wrapper">
+                  <Image src={lamboLogo} alt="Lamborghini" width={100} height={100} style={{ objectFit: 'contain' }} />
+                </div>
+                <p className="about-brand-name">Lamborghini</p>
+              </div>
+              
+              <div className="about-brand-logo-card">
+                <div className="about-brand-logo-wrapper">
+                  <Image src={mercedesLogo} alt="Mercedes-Benz" width={100} height={100} style={{ objectFit: 'contain' }} />
+                </div>
+                <p className="about-brand-name">Mercedes-Benz</p>
+              </div>
+              
+              <div className="about-brand-logo-card">
+                <div className="about-brand-logo-wrapper">
+                  <Image src={bmwLogo} alt="BMW" width={100} height={100} style={{ objectFit: 'contain' }} />
+                </div>
+                <p className="about-brand-name">BMW</p>
+              </div>
+              
+              <div className="about-brand-logo-card">
+                <div className="about-brand-logo-wrapper">
+                  <Image src={jaguarLogo} alt="Jaguar" width={100} height={100} style={{ objectFit: 'contain' }} />
+                </div>
+                <p className="about-brand-name">Jaguar</p>
+              </div>
+              
+              <div className="about-brand-logo-card">
+                <div className="about-brand-logo-wrapper">
+                  <Image src={lamboLogo} alt="Lamborghini" width={100} height={100} style={{ objectFit: 'contain' }} />
+                </div>
+                <p className="about-brand-name">Lamborghini</p>
+              </div>
             </div>
           </div>
         </div>

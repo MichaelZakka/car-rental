@@ -163,26 +163,26 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
           onMouseOut={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.8)'}
           >
             ← Back to Collections
-          </Link>
+              </Link>
           <h1 className="brands-hero-title">{category.name}</h1>
           <p className="brands-hero-subtitle">
-            {category.description}
-          </p>
-          <div className="categories-hero-stats">
-            <div className="hero-stat">
-              <div className="stat-number">{cars.length}</div>
-              <div className="stat-label">VEHICLES</div>
+                {category.description}
+              </p>
+              <div className="categories-hero-stats">
+                <div className="hero-stat">
+                  <div className="stat-number">{cars.length}</div>
+                  <div className="stat-label">VEHICLES</div>
+                </div>
+                <div className="hero-stat">
+                  <div className="stat-number">100%</div>
+                  <div className="stat-label">VERIFIED</div>
+                </div>
+                <div className="hero-stat">
+                  <div className="stat-number">24/7</div>
+                  <div className="stat-label">AVAILABLE</div>
+                </div>
+              </div>
             </div>
-            <div className="hero-stat">
-              <div className="stat-number">100%</div>
-              <div className="stat-label">VERIFIED</div>
-            </div>
-            <div className="hero-stat">
-              <div className="stat-number">24/7</div>
-              <div className="stat-label">AVAILABLE</div>
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* Cars Swiper Section */}
@@ -321,7 +321,7 @@ export default function CategoryDetailPage({ params }: { params: Promise<{ categ
             .car-main-swiper-full .swiper-button-prev {
               left: 8px !important;
             }
-
+            
             .car-main-swiper-full .swiper-pagination-bullet {
               background: #ffffff;
               opacity: 0.5;
