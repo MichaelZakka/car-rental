@@ -83,24 +83,26 @@ export default function CategoriesPage() {
       {/* Categories Grid */}
       <section className="categories-page-section">
         <div className="container">
-          <div className="categories-page-grid">
+          <div className="categories-grid">
             {categories.map((category) => (
               <div
                 key={category.id}
-                className="category-page-card"
+                className="category-card"
                 onClick={() => handleCategoryClick(category.id)}
               >
-                <div className="category-page-image-wrapper">
-                  <img src={category.image} alt={category.name} className="category-page-image" />
-                  <div className="category-page-overlay"></div>
-                  <div className="category-page-badge">{category.carCount} Vehicles</div>
-                </div>
-                <div className="category-page-content">
-                  <h2 className="category-page-name">{category.name}</h2>
-                  <p className="category-page-description">{category.description}</p>
-                  <div className="category-page-footer">
-                    <span className="category-page-price">From {category.startingPrice}</span>
-                    <button className="category-page-btn">View All →</button>
+                <div className="category-image-wrapper">
+                  <img src={category.image} alt={category.name} className="category-image" />
+                  <div className="category-overlay"></div>
+                  <div className="category-name-overlay">
+                    <h3 className="category-title">{category.name}</h3>
+                  </div>
+                  <div className="category-details-overlay">
+                    <p className="category-description">{category.description}</p>
+                    <div className="category-stats">
+                      <span className="category-count">{category.carCount} Vehicles</span>
+                      <span className="category-price">From {category.startingPrice}</span>
+                    </div>
+                    <button className="btn-explore">Explore</button>
                   </div>
                 </div>
               </div>

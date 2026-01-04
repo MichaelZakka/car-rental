@@ -2,12 +2,23 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper/modules';
+import type { Swiper as SwiperType } from 'swiper';
 import '../../showroom.css';
 import Footer from '../../components/Footer';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import bmwCarImage from '../../assets/cars/bmw_Isolated.png';
+import mercedesCarImage from '../../assets/cars/Mercedes_Isolated.png';
+import jaguarCarImage from '../../assets/cars/Jaguar_Isolated2.png';
+import lamboCarImage from '../../assets/cars/Lambo_Isolated.png';
 
 export default function BrandDetailPage({ params }: { params: { brandId: string } }) {
   const router = useRouter();
-  const [hoveredCar, setHoveredCar] = useState<string | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [mainSwiper, setMainSwiper] = useState<SwiperType | null>(null);
 
   const brandData: { [key: string]: any } = {
     'bmw': {
@@ -111,7 +122,27 @@ export default function BrandDetailPage({ params }: { params: { brandId: string 
     }
   };
 
-  // Sample cars - in real app, filter by brand
+  // Map brand to car image
+  const getBrandCarImage = (brandName: string) => {
+    const brandImageMap: { [key: string]: any } = {
+      'BMW': bmwCarImage,
+      'Mercedes-Benz': mercedesCarImage,
+      'Jaguar': jaguarCarImage,
+      'Lamborghini': lamboCarImage,
+      'Porsche': lamboCarImage,
+      'Audi': bmwCarImage,
+      'Tesla': bmwCarImage,
+      'Lexus': bmwCarImage,
+      'Genesis': bmwCarImage,
+      'Cadillac': bmwCarImage,
+      'Land Rover': bmwCarImage
+    };
+    return brandImageMap[brandName] || bmwCarImage;
+  };
+
+  const brandCarImage = getBrandCarImage(brand.name);
+
+  // Sample cars - extended with additional details for carousel
   const cars = [
     {
       id: '1',
@@ -121,10 +152,13 @@ export default function BrandDetailPage({ params }: { params: { brandId: string 
       acceleration: '5.1s',
       fuelType: 'Hybrid',
       price: '$58,900',
-      image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80',
+      image: brandCarImage,
       transmission: 'Automatic',
       seats: 5,
-      mileage: '12,000 mi'
+      mileage: '12,000 mi',
+      topSpeed: '155 mph',
+      drivetrain: 'AWD',
+      description: 'Experience the perfect blend of luxury and performance. This exceptional vehicle delivers unmatched driving dynamics and sophisticated elegance.'
     },
     {
       id: '2',
@@ -134,10 +168,13 @@ export default function BrandDetailPage({ params }: { params: { brandId: string 
       acceleration: '4.9s',
       fuelType: 'Gasoline',
       price: '$61,500',
-      image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80',
+      image: brandCarImage,
       transmission: 'Automatic',
       seats: 5,
-      mileage: '8,500 mi'
+      mileage: '8,500 mi',
+      topSpeed: '155 mph',
+      drivetrain: 'AWD',
+      description: 'A masterpiece of engineering and design. This vehicle delivers breathtaking performance wrapped in elegant sophistication.'
     },
     {
       id: '3',
@@ -147,10 +184,13 @@ export default function BrandDetailPage({ params }: { params: { brandId: string 
       acceleration: '5.1s',
       fuelType: 'Gasoline',
       price: '$56,500',
-      image: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80',
+      image: brandCarImage,
       transmission: 'Automatic',
       seats: 5,
-      mileage: '10,200 mi'
+      mileage: '10,200 mi',
+      topSpeed: '155 mph',
+      drivetrain: 'RWD',
+      description: 'Every tap of the accelerator is a gut punch. It\'s a special engine, a true talisman against boredom and the indignities of daily life.'
     },
     {
       id: '4',
@@ -160,10 +200,13 @@ export default function BrandDetailPage({ params }: { params: { brandId: string 
       acceleration: '4.2s',
       fuelType: 'Gasoline',
       price: '$72,000',
-      image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=80',
+      image: brandCarImage,
       transmission: 'Automatic',
       seats: 4,
-      mileage: '5,800 mi'
+      mileage: '5,800 mi',
+      topSpeed: '177 mph',
+      drivetrain: 'RWD',
+      description: 'High-performance engineering meets refined luxury. This coupe delivers exhilarating power with uncompromising style.'
     },
     {
       id: '5',
@@ -173,10 +216,13 @@ export default function BrandDetailPage({ params }: { params: { brandId: string 
       acceleration: '5.5s',
       fuelType: 'Hybrid',
       price: '$68,900',
-      image: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800&q=80',
+      image: brandCarImage,
       transmission: 'Automatic',
       seats: 7,
-      mileage: '9,200 mi'
+      mileage: '9,200 mi',
+      topSpeed: '155 mph',
+      drivetrain: 'AWD',
+      description: 'Combining refinement with ruggedness, this SUV is built for adventure while providing premium comfort and style.'
     },
     {
       id: '6',
@@ -186,10 +232,13 @@ export default function BrandDetailPage({ params }: { params: { brandId: string 
       acceleration: '3.8s',
       fuelType: 'Gasoline',
       price: '$85,000',
-      image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80',
+      image: brandCarImage,
       transmission: 'Automatic',
       seats: 4,
-      mileage: '15,500 mi'
+      mileage: '15,500 mi',
+      topSpeed: '189 mph',
+      drivetrain: 'AWD',
+      description: 'The ultimate expression of performance. This sport model thrills enthusiasts with legendary driving dynamics.'
     }
   ];
 
@@ -216,55 +265,426 @@ export default function BrandDetailPage({ params }: { params: { brandId: string 
         </div>
       </section>
 
-      {/* Available Vehicles */}
-      <section className="brand-vehicles-section">
+      {/* Available Vehicles - FeaturedVehicles Style */}
+      <section className="brand-vehicles-section" style={{ padding: '2rem 0' }}>
         <div className="container">
-          <h2 className="section-title">Available {brand.name} Vehicles</h2>
-          <div className="brand-vehicles-grid">
-            {cars.map((car) => (
-              <div
-                key={car.id}
-                className="brand-vehicle-card"
-                onMouseEnter={() => setHoveredCar(car.id)}
-                onMouseLeave={() => setHoveredCar(null)}
-                onClick={() => router.push(`/cars/${car.id}`)}
-              >
-                <div className="brand-vehicle-image-wrapper">
-                  <img src={car.image} alt={car.name} className="brand-vehicle-image" />
-                  <div className="brand-vehicle-overlay"></div>
+          <h2 className="section-title" style={{ textAlign: 'center', marginBottom: 'clamp(0.67rem, 2vw, 1.33rem)' }}>Available {brand.name} Vehicles</h2>
+        </div>
+
+        {/* Main Car Image Swiper - Full Width */}
+        <div style={{ 
+          width: '100vw', 
+          marginLeft: 'calc(-50vw + 50%)', 
+          marginBottom: 'clamp(0.67rem, 1.33vw, 1.33rem)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          overflow: 'hidden',
+          position: 'relative'
+        }}>
+          <Swiper
+            onSwiper={(swiper) => {
+              if (swiper) {
+                setMainSwiper(swiper);
+              }
+            }}
+            spaceBetween={30}
+            slidesPerView={1.2}
+            centeredSlides={true}
+            navigation
+            pagination={{ clickable: true }}
+            modules={[Navigation, Pagination]}
+            onSlideChange={(swiper) => {
+              setActiveIndex(swiper.activeIndex);
+            }}
+            className="car-main-swiper-full"
+            style={{
+              width: '100%',
+              maxWidth: '100%'
+            }}
+            breakpoints={{
+              480: {
+                slidesPerView: 1.3,
+                spaceBetween: 20,
+                centeredSlides: true,
+              },
+              640: {
+                slidesPerView: 1.5,
+                spaceBetween: 25,
+                centeredSlides: true,
+              },
+              768: {
+                slidesPerView: 1.8,
+                spaceBetween: 30,
+                centeredSlides: true,
+              },
+              1024: {
+                slidesPerView: 2.2,
+                spaceBetween: 40,
+                centeredSlides: true,
+              },
+              1280: {
+                slidesPerView: 2.5,
+                spaceBetween: 50,
+                centeredSlides: true,
+              },
+            }}
+          >
+            {cars.map((car, index) => {
+              const isActive = activeIndex === index;
+              return (
+                <SwiperSlide key={car.id} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: 'clamp(0.67rem, 1.33vw, 1.67rem) clamp(0.33rem, 1.33vw, 0.67rem)',
+                    minHeight: 'clamp(133px, 23.3vh, 233px)',
+                    position: 'relative',
+                    width: '100%',
+                    height: '100%',
+                    margin: '0 auto',
+                    opacity: isActive ? 1 : 0.6,
+                    transform: isActive ? 'scale(1)' : 'scale(0.88)',
+                    transition: 'all 0.3s ease',
+                    pointerEvents: isActive ? 'auto' : 'auto'
+                  }}>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '100%',
+                      height: '100%'
+                    }}>
+                      <img 
+                        src={typeof car.image === 'string' ? car.image : car.image.src} 
+                        alt={car.name}
+                        style={{ 
+                          objectFit: 'contain',
+                          maxWidth: '100%',
+                          height: 'auto',
+                          filter: isActive 
+                            ? 'drop-shadow(0 20px 60px rgba(26, 77, 46, 0.8)) drop-shadow(0 10px 30px rgba(26, 77, 46, 0.6)) drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4))'
+                            : 'drop-shadow(0 10px 30px rgba(26, 77, 46, 0.5))',
+                          display: 'block',
+                          margin: '0 auto',
+                          transition: 'all 0.3s ease',
+                          width: 'clamp(133px, 46.7vw, 400px)'
+                        }}
+                      />
+                    </div>
+                  </div>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        </div>
+
+        <style dangerouslySetInnerHTML={{__html: `
+          /* Swiper Navigation Arrows */
+          .car-main-swiper-full .swiper-button-next,
+          .car-main-swiper-full .swiper-button-prev {
+            width: 32px !important;
+            height: 32px !important;
+            margin-top: -16px !important;
+            color: #ffffff;
+          }
+          
+          .car-main-swiper-full .swiper-button-next:after,
+          .car-main-swiper-full .swiper-button-prev:after {
+            font-size: 14px !important;
+            font-weight: 700 !important;
+          }
+          
+          .car-main-swiper-full .swiper-button-next {
+            right: 8px !important;
+          }
+          
+          .car-main-swiper-full .swiper-button-prev {
+            left: 8px !important;
+          }
+
+          .car-main-swiper-full .swiper-pagination-bullet {
+            background: #ffffff;
+            opacity: 0.5;
+          }
+
+          .car-main-swiper-full .swiper-pagination-bullet-active {
+            opacity: 1;
+            background: var(--primary-green, #2d6b5b);
+          }
+          
+          @media (max-width: 768px) {
+            .car-main-swiper-full .swiper-button-next,
+            .car-main-swiper-full .swiper-button-prev {
+              display: none !important;
+            }
+          }
+        `}} />
+
+        {/* Car Information Section - Luxurious Layout */}
+        <div style={{
+          position: 'relative',
+          width: '100%',
+          marginBottom: 0,
+          padding: 'clamp(0.5rem, 2vw, 1.5rem) clamp(0.67rem, 2vw, 1.33rem) clamp(0.5rem, 2vw, 1rem) clamp(0.67rem, 2vw, 1.33rem)'
+        }}>
+          {/* Main Info Grid */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 2fr 1fr',
+            gap: 'clamp(0.75rem, 2vw, 1.5rem)',
+            alignItems: 'center',
+            maxWidth: '1000px',
+            margin: '0 auto',
+            padding: '1rem 0'
+          }}
+          className="luxury-car-info-grid"
+          >
+            {/* Left Column - Brand & Price */}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.75rem',
+              alignItems: 'flex-start',
+              textAlign: 'left'
+            }}
+            className="luxury-car-info-left"
+            >
+              <div>
+                <div style={{
+                  fontSize: '0.55rem',
+                  fontWeight: '500',
+                  color: '#999',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.15em',
+                  marginBottom: '0.25rem'
+                }}>
+                  {brand.name}
                 </div>
-                <div className="brand-vehicle-info">
-                  <h3 className="brand-vehicle-name">{car.name}</h3>
-                  <p className="brand-vehicle-year">{car.year}</p>
-                  <div className="brand-vehicle-specs">
-                    <div className="spec-item">
-                      <span className="spec-label">Power</span>
-                      <span className="spec-value">{car.horsepower}</span>
-                    </div>
-                    <div className="spec-item">
-                      <span className="spec-label">0-60mph</span>
-                      <span className="spec-value">{car.acceleration}</span>
-                    </div>
-                    <div className="spec-item">
-                      <span className="spec-label">Fuel</span>
-                      <span className="spec-value">{car.fuelType}</span>
-                    </div>
-                  </div>
-                  <div className="brand-vehicle-footer">
-                    <span className="brand-vehicle-price">{car.price}</span>
-                    <button className="brand-vehicle-btn">
-                      {hoveredCar === car.id ? 'View Details →' : 'View Details'}
-                    </button>
-                  </div>
+                <div style={{
+                  fontSize: '1rem',
+                  fontWeight: '300',
+                  color: '#ffffff',
+                  letterSpacing: '-0.02em',
+                  lineHeight: '1.1'
+                }}>
+                  {cars[activeIndex].price}
                 </div>
               </div>
-            ))}
+              <div style={{
+                width: '30px',
+                height: '1px',
+                background: 'linear-gradient(90deg, #ffffff 0%, transparent 100%)'
+              }}></div>
+            </div>
+
+            {/* Center Column - Name & Description */}
+            <div style={{
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.75rem'
+            }}>
+              <div>
+                <h2 style={{
+                  fontSize: 'clamp(1.1rem, 2.5vw, 1.6rem)',
+                  fontWeight: '200',
+                  color: '#ffffff',
+                  margin: 0,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                  lineHeight: '1.1',
+                  fontFamily: 'inherit'
+                }}>
+                  {cars[activeIndex].name.split(' ').slice(0, -1).join(' ')}
+                </h2>
+                <h3 style={{
+                  fontSize: 'clamp(0.9rem, 2vw, 1.3rem)',
+                  fontWeight: '700',
+                  color: '#ffffff',
+                  margin: '0.25rem 0 0 0',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.1em',
+                  lineHeight: '1.1'
+                }}>
+                  {cars[activeIndex].name.split(' ').slice(-1)[0]}
+                </h3>
+              </div>
+              <p style={{
+                fontSize: '0.7rem',
+                color: '#999',
+                lineHeight: '1.5',
+                maxWidth: '500px',
+                margin: '0 auto',
+                fontWeight: '300',
+                fontStyle: 'italic'
+              }}>
+                {cars[activeIndex].description}
+              </p>
+            </div>
+
+            {/* Right Column - Performance Stats */}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.75rem',
+              alignItems: 'flex-end'
+            }}
+            className="luxury-car-info-right"
+            >
+              <div style={{ textAlign: 'right' }}>
+                <div style={{
+                  fontSize: '0.55rem',
+                  fontWeight: '500',
+                  color: '#999',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.15em',
+                  marginBottom: '0.25rem'
+                }}>
+                  Power
+                </div>
+                <div style={{
+                  fontSize: '1rem',
+                  fontWeight: '300',
+                  color: '#ffffff',
+                  letterSpacing: '-0.02em',
+                  lineHeight: '1.1'
+                }}>
+                  {cars[activeIndex].horsepower}
+                </div>
+              </div>
+              <div style={{
+                width: '30px',
+                height: '1px',
+                background: 'linear-gradient(270deg, #ffffff 0%, transparent 100%)',
+                marginLeft: 'auto'
+              }}></div>
+            </div>
+          </div>
+
+          {/* Bottom Stats Bar */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: 'clamp(0.75rem, 2.5vw, 2rem)',
+            marginTop: 'clamp(0.75rem, 2vw, 1.5rem)',
+            paddingTop: 'clamp(0.75rem, 2vw, 1.5rem)',
+            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+            flexWrap: 'wrap'
+          }}
+          className="luxury-stats-bar"
+          >
+            <div style={{ textAlign: 'center' }}>
+              <div style={{
+                fontSize: '0.5rem',
+                fontWeight: '500',
+                color: '#999',
+                textTransform: 'uppercase',
+                letterSpacing: '0.2em',
+                marginBottom: '0.35rem'
+              }}>
+                Acceleration
+              </div>
+              <div style={{
+                fontSize: '0.85rem',
+                fontWeight: '300',
+                color: '#ffffff',
+                letterSpacing: '-0.02em'
+              }}>
+                {cars[activeIndex].acceleration}
+              </div>
+            </div>
+
+            <div style={{ textAlign: 'center' }}>
+              <div style={{
+                fontSize: '0.5rem',
+                fontWeight: '500',
+                color: '#999',
+                textTransform: 'uppercase',
+                letterSpacing: '0.2em',
+                marginBottom: '0.35rem'
+              }}>
+                Top Speed
+              </div>
+              <div style={{
+                fontSize: '0.85rem',
+                fontWeight: '300',
+                color: '#ffffff',
+                letterSpacing: '-0.02em'
+              }}>
+                {cars[activeIndex].topSpeed}
+              </div>
+            </div>
+
+            <div style={{ textAlign: 'center' }}>
+              <div style={{
+                fontSize: '0.5rem',
+                fontWeight: '500',
+                color: '#999',
+                textTransform: 'uppercase',
+                letterSpacing: '0.2em',
+                marginBottom: '0.35rem'
+              }}>
+                Drivetrain
+              </div>
+              <div style={{
+                fontSize: '0.85rem',
+                fontWeight: '300',
+                color: '#ffffff',
+                letterSpacing: '-0.02em'
+              }}>
+                {cars[activeIndex].drivetrain}
+              </div>
+            </div>
+
+            <div style={{ textAlign: 'center' }}>
+              <div style={{
+                fontSize: '0.5rem',
+                fontWeight: '500',
+                color: '#999',
+                textTransform: 'uppercase',
+                letterSpacing: '0.2em',
+                marginBottom: '0.35rem'
+              }}>
+                Transmission
+              </div>
+              <div style={{
+                fontSize: '0.85rem',
+                fontWeight: '300',
+                color: '#ffffff',
+                letterSpacing: '-0.02em'
+              }}>
+                {cars[activeIndex].transmission}
+              </div>
+            </div>
+          </div>
+
+          {/* View Details Button */}
+          <div style={{
+            textAlign: 'center',
+            marginTop: 'clamp(0.5rem, 1.33vw, 1rem)',
+            marginBottom: 0,
+            paddingBottom: 0
+          }}>
+            <button 
+              className="btn-view-all-collections"
+              onClick={() => router.push(`/cars/${cars[activeIndex].id}`)}
+              style={{
+                padding: '10px 28px',
+                fontSize: '0.75rem',
+                borderRadius: '30px'
+              }}
+            >
+              Explore Details
+            </button>
           </div>
         </div>
+
       </section>
 
       {/* CTA Section */}
-      <section className="brand-cta-section">
+      {/* <section className="brand-cta-section">
         <div className="container">
           <div className="brand-cta-content">
             <h2 className="brand-cta-title">Interested in a {brand.name}?</h2>
@@ -287,7 +707,7 @@ export default function BrandDetailPage({ params }: { params: { brandId: string 
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <Footer scrollToSection={scrollToSection} />
     </div>
