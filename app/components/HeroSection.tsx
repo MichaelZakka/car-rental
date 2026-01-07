@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import logo from '../assets/solid-logo.png';
 
@@ -11,6 +11,7 @@ interface HeroSectionProps {
 export default function HeroSection({ scrollToSection }: HeroSectionProps) {
   const [scrollY, setScrollY] = useState(0);
   const heroRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,14 +27,32 @@ export default function HeroSection({ scrollToSection }: HeroSectionProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleTimeUpdate = () => {
+    if (videoRef.current) {
+      const video = videoRef.current;
+      // Restart video 2 seconds before the end
+      if (video.duration - video.currentTime <= 3) {
+        video.currentTime = 0;
+      }
+    }
+  };
+
   return (
     <section id="hero" ref={heroRef} className="hero-section">
-      <div 
+      <video 
+        ref={videoRef}
         className="hero-background"
         style={{
           transform: `translateY(${scrollY * 0.5}px)`
         }}
-      ></div>
+        autoPlay
+        loop
+        muted
+        playsInline
+        onTimeUpdate={handleTimeUpdate}
+      >
+        <source src="/hero-video.mp4" type="video/mp4" />
+      </video>
       <div className="hero-overlay"></div>
       <div className="hero-content">
         <div className="hero-logo hero-fade-in" style={{ animationDelay: '0.2s', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
