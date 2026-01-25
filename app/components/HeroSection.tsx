@@ -74,7 +74,7 @@ export default function HeroSection({ scrollToSection }: HeroSectionProps) {
           <div className="logo-divider"></div>
         </div>
         <h2 className="hero-tagline hero-fade-in" style={{ animationDelay: '0.4s' }}>
-          Luxury Car Rental
+          Luxury Car Gallery
         </h2>
         <p className="hero-subtitle hero-fade-in" style={{ animationDelay: '0.6s' }}>
           Experience Premium Mobility
